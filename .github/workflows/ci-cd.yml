@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
   workflow_dispatch:
 
 jobs:
@@ -78,4 +78,5 @@ jobs:
     
     - name: Image digest
       run: echo "✅ Docker image pushed successfully!"
+
 
