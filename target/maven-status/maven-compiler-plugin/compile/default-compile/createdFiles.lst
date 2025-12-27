@@ -17,6 +17,7 @@ ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksiId.class
 ui\ft\ccit\faculty\transaksi\auth\LoginResponse.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\controller\DetailTransaksiController.class
 ui\ft\ccit\faculty\transaksi\pemasok\model\PemasokRepository.class
+ui\ft\ccit\faculty\transaksi\karyawan\dto\KaryawanMapper.class
 ui\ft\ccit\faculty\transaksi\pemasok\view\PemasokNotFoundException.class
 ui\ft\ccit\faculty\transaksi\barang\view\BarangService.class
 ui\ft\ccit\faculty\transaksi\transaksi\model\Transaksi.class
@@ -29,6 +30,7 @@ ui\ft\ccit\faculty\transaksi\pelanggan\model\PelangganRepository.class
 ui\ft\ccit\faculty\transaksi\DataNotFoundException.class
 ui\ft\ccit\faculty\transaksi\auth\AuthController.class
 ui\ft\ccit\faculty\transaksi\jenisbarang\view\JenisBarangService.class
+ui\ft\ccit\faculty\transaksi\karyawan\dto\CreateKaryawanRequest.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\view\DetailTransaksiNotFoundException.class
 ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarangRepository.class
 ui\ft\ccit\faculty\transaksi\pelanggan\model\Pelanggan.class
@@ -36,6 +38,7 @@ ui\ft\ccit\faculty\transaksi\barang\controller\BarangController.class
 ui\ft\ccit\faculty\transaksi\barang\model\Barang.class
 ui\ft\ccit\faculty\transaksi\GlobalExceptionHandler.class
 ui\ft\ccit\faculty\transaksi\transaksi\controller\TransaksiController.class
+ui\ft\ccit\faculty\transaksi\karyawan\dto\UpdateKaryawanRequest.class
 ui\ft\ccit\faculty\transaksi\karyawan\view\KaryawanAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\pemasok\view\PemasokAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\barang\view\BarangAlreadyExistsException.class
@@ -45,10 +48,12 @@ ui\ft\ccit\faculty\transaksi\pelanggan\view\PelangganService.class
 ui\ft\ccit\faculty\transaksi\transaksi\view\TransaksiAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\transaksi\model\TransaksiRepository.class
 ui\ft\ccit\faculty\transaksi\SecurityConfig.class
+ui\ft\ccit\faculty\transaksi\GlobalExceptionHandler$ValidationErrorResponse.class
 ui\ft\ccit\faculty\transaksi\pemasok\view\PemasokService.class
 ui\ft\ccit\faculty\transaksi\auth\LoginRequest.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksiRepository.class
 ui\ft\ccit\faculty\transaksi\TransaksiApplication.class
 ui\ft\ccit\faculty\transaksi\karyawan\model\KaryawanRepository.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksi.class
+ui\ft\ccit\faculty\transaksi\karyawan\dto\KaryawanResponse.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\view\DetailTransaksiService.class

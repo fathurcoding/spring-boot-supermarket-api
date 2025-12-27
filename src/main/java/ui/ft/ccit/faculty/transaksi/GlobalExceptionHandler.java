@@ -1,12 +1,15 @@
 package ui.ft.ccit.faculty.transaksi;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -43,16 +46,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidation(MethodArgumentNotValidException ex) {
-        String msg = ex.getBindingResult().getFieldErrors().stream()
-                .findFirst()
-                .map(err -> err.getField() + " " + err.getDefaultMessage())
-                .orElse("Data tidak valid");
-        return new ErrorResponse(
+    public ValidationErrorResponse handleValidation(MethodArgumentNotValidException ex) {
+        Map<String, String> fieldErrors = new HashMap<>();
+        
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            fieldErrors.put(error.getField(), error.getDefaultMessage());
+        }
+        
+        String message = "Validation failed for " + ex.getBindingResult().getObjectName();
+        
+        return new ValidationErrorResponse(
                 "VALIDATION_ERROR",
-                msg,
-                null,
-                null);
+                message,
+                fieldErrors
+        );
     }
 
     @ExceptionHandler(Exception.class)
@@ -96,6 +103,36 @@ public class GlobalExceptionHandler {
             return id;
         }
 
+        public LocalDateTime getTimestamp() {
+            return timestamp;
+        }
+    }
+    
+    public static class ValidationErrorResponse {
+        private final String code;
+        private final String message;
+        private final Map<String, String> fieldErrors;
+        private final LocalDateTime timestamp;
+        
+        public ValidationErrorResponse(String code, String message, Map<String, String> fieldErrors) {
+            this.code = code;
+            this.message = message;
+            this.fieldErrors = fieldErrors;
+            this.timestamp = LocalDateTime.now();
+        }
+        
+        public String getCode() {
+            return code;
+        }
+        
+        public String getMessage() {
+            return message;
+        }
+        
+        public Map<String, String> getFieldErrors() {
+            return fieldErrors;
+        }
+        
         public LocalDateTime getTimestamp() {
             return timestamp;
         }

@@ -1,5 +1,7 @@
 package ui.ft.ccit.faculty.transaksi.karyawan.view;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ui.ft.ccit.faculty.transaksi.karyawan.model.Karyawan;
 import ui.ft.ccit.faculty.transaksi.karyawan.model.KaryawanRepository;
@@ -9,8 +11,8 @@ import java.util.List;
 /**
  * Service layer for Karyawan business logic.
  * 
- * <p>Provides CRUD operations for employee management with validation
- * and exception handling.</p>
+ * <p>Provides CRUD operations for employee management with validation,
+ * exception handling, and pagination support.</p>
  * 
  * @author CCIT Faculty Students
  * @version 0.0.1-SNAPSHOT
@@ -37,6 +39,16 @@ public class KaryawanService {
 	 */
 	public List<Karyawan> findAll() {
 		return repository.findAll();
+	}
+	
+	/**
+	 * Retrieves all employees with pagination.
+	 * 
+	 * @param pageable pagination parameters
+	 * @return page of karyawan
+	 */
+	public Page<Karyawan> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	/**
