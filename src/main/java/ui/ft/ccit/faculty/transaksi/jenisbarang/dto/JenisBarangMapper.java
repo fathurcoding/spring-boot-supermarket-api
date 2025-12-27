@@ -13,12 +13,15 @@ public class JenisBarangMapper {
 	}
 	
 	public static void updateEntity(JenisBarang jenis, UpdateJenisBarangRequest request) {
-		if (request == null || jenis == null) return;		if (request.getNamaJenisbrg() != null) jenis.setNamaJenisbrg(request.getNamaJenisbrg());
+		if (request == null || jenis == null) return;
+		if (request.getNamaJenisbrg() != null) {
+			jenis.setNamaJenisbrg(request.getNamaJenisbrg());
+		}
 	}
 	
 	public static JenisBarangResponse toResponse(JenisBarang jenis) {
 		if (jenis == null) return null;
-		return new JenisBarangResponse(jenis.getIdJenisbrg(), jenis.getNama JenisBarangMapper.java");
+		// Corrected line below - removed garbage text
 		return new JenisBarangResponse(jenis.getIdJenisbrg(), jenis.getNamaJenisbrg());
 	}
 }
