@@ -1,15 +1,81 @@
+# ========================================
+# Spring Boot Application Configuration
+# ========================================
+# Main configuration file for Transaksi Supermarket API
+# For environment-specific configs, see application-{profile}.yaml
+
 spring:
+  # Application metadata
   application:
     name: transaksi
-
+  
+  # Active profile (used when running from IDE or ./mvnw spring-boot:run)
+  # Options: local, docker
+  # - local: for development on local machine
+  # - docker: for running in Docker container
   profiles:
-    active: local   # default kalau jalan dari IDE
-
+    active: local
+  
+  # Database configuration
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  
+  # JPA/Hibernate configuration
+  jpa:
+    hibernate:
+      # DDL auto mode: validate (no schema changes)
+      # Options: validate, update, create, create-drop
+      ddl-auto: validate
+    
+    # Show SQL in logs (helpful for debugging)
+    show-sql: false
+    
+    # Disable open-in-view to prevent lazy loading issues
+    open-in-view: false
+    
+    properties:
+      hibernate:
+        # SQL formatting for readability in logs
+        format_sql: true
+        
+        # Hibernate dialect for MySQL
+        dialect: org.hibernate.dialect.MySQLDialect
+  
+  # Security - OAuth2 Resource Server
   security:
     oauth2:
       resourceserver:
         jwt:
+          # JWT issuer URI (Google OAuth2)
           issuer-uri: https://accounts.google.com
+
+# Server configuration
+server:
+  # Application port
+  port: 8080
+  
+  # Error handling
+  error:
+    include-message: always
+    include-stacktrace: never
+
+# Logging configuration
+logging:
+  level:
+    # Root logger level
+    root: INFO
+    
+    # Application package logging
+    ui.ft.ccit.faculty.transaksi: DEBUG
+    
+    # Spring framework logging
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    
+    # Hibernate logging
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  
+  # Log pattern
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

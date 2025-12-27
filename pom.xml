@@ -12,109 +12,142 @@
 	<artifactId>transaksi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>transaksi</name>
-	<description>Contoh API Transaksi</description>
-	<url/>
+	<description>RESTful API for Supermarket Transaction Management System built with Spring Boot 4.0.0</description>
+	<url>https://github.com/fathurcoding/spring-boot-supermarket-api</url>
+	
 	<licenses>
-		<license/>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
 	</licenses>
+	
 	<developers>
-		<developer/>
+		<developer>
+			<name>CCIT Faculty Students</name>
+			<organization>Universitas Indonesia - CCIT</organization>
+		</developer>
 	</developers>
+	
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:git://github.com/fathurcoding/spring-boot-supermarket-api.git</connection>
+		<developerConnection>scm:git:ssh://github.com:fathurcoding/spring-boot-supermarket-api.git</developerConnection>
+		<url>https://github.com/fathurcoding/spring-boot-supermarket-api</url>
 	</scm>
 	<properties>
 		<java.version>25</java.version>
 	</properties>
+	<!-- ========================================= -->
+	<!-- DEPENDENCIES                              -->
+	<!-- ========================================= -->
 	<dependencies>
-		<!-- Expose repository sebagai REST HAL (kalau nanti dipakai) -->
+		<!-- ========================================= -->
+		<!-- WEB & REST API DEPENDENCIES              -->
+		<!-- ========================================= -->
+		
+		<!-- Spring Data REST: Expose JPA repositories as REST endpoints -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 
-		<!-- Spring HATEOAS (EntityModel, linkTo, methodOn, dst) -->
+		<!-- Spring HATEOAS: Hypermedia support (EntityModel, CollectionModel, links) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 
-		<!-- Web MVC (Controller, RestController, dst) -->
+		<!-- Spring Web MVC: Core web support (Controllers, REST, HTTP) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
-		<!-- HAL Explorer: UI untuk jelajah resource HAL -->
+		<!-- HAL Explorer: Web UI to browse and test REST API -->
+		<!-- Access at: http://localhost:8080/explorer/index.html -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-hal-explorer</artifactId>
 		</dependency>
 
-		<!-- Test umum untuk Spring Boot -->
+		<!-- ========================================= -->
+		<!-- TESTING DEPENDENCIES                     -->
+		<!-- ========================================= -->
+		
+		<!-- Spring Boot Test: Core testing support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- extra helper test khusus HATEOAS -->
+		<!-- HATEOAS Test Support: Testing hypermedia responses -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- extra helper test khusus WebMVC -->
+		<!-- Spring MVC Test Support: Testing REST controllers -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- jackson-core  -->
+		<!-- ========================================= -->
+		<!-- JSON & DATA PROCESSING                    -->
+		<!-- ========================================= -->
+		
+		<!-- Jackson Core: JSON serialization/deserialization -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 		</dependency>
 
-		<!--  data jpa -->
+		<!-- ========================================= -->
+		<!-- DATABASE & PERSISTENCE                    -->
+		<!-- ========================================= -->
+		
+		<!-- Spring Data JPA: ORM with Hibernate -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- MySQL driver -->
+		<!-- MySQL Connector: JDBC driver for MySQL 8.0 -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- test -->
+		<!-- Spring Boot Test: Main testing framework with JUnit 5 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- jpa test -->
+		<!-- JPA Test Support: Testing JPA repositories and entities -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Security dasar -->
+		<!-- ========================================= -->
+		<!-- SECURITY & AUTHENTICATION                 -->
+		<!-- ========================================= -->
+		
+		<!-- Spring Security: Core security framework -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<!-- Resource server JWT berbasis OAuth2 -->
+		<!-- OAuth2 Resource Server: JWT token validation -->
+		<!-- Issuer: Google OAuth2 (accounts.google.com) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>

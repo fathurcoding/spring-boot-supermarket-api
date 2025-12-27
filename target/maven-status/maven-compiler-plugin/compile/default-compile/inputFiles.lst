@@ -1,15 +1,19 @@
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\controller\BarangController.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\model\Barang.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\model\BarangRepository.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\view\BarangAlreadyExistsException.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\view\BarangNotFoundException.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\view\BarangService.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\DataAlreadyExistsException.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\DataNotFoundException.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\GlobalExceptionHandler.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarang.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarangRepository.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\Pemasok.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\PemasokRepository.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\SecurityConfig.java
-D:\Documents\Work\CCIT FTUI\Mengajar\2025-2026\Spring\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\TransaksiApplication.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\controller\BarangController.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\model\Barang.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\model\BarangRepository.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\view\BarangAlreadyExistsException.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\view\BarangNotFoundException.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\view\BarangService.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\DataAlreadyExistsException.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\DataNotFoundException.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\GlobalExceptionHandler.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\controller\JenisBarangController.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarang.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarangRepository.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\view\BarangNotFoundException.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\view\JenisBarangAlreadyExistsException.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\view\JenisBarangService.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\model\Pemasok.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\model\PemasokRepository.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\SecurityConfig.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\TransaksiApplication.java

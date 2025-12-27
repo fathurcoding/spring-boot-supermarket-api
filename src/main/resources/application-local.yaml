@@ -1,8 +1,47 @@
+# ========================================
+# Local Development Profile
+# ========================================
+# Configuration for running application on local machine
+# Usage: ./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+
 spring:
   config:
     activate:
       on-profile: local
-
+  
+  # Local MySQL database connection
   datasource:
     url: jdbc:mysql://localhost:3306/penjualan?useSSL=false&serverTimezone=Asia/Jakarta
     username: root
+    password:  # TODO: Set your MySQL root password here
+  
+  # JPA configuration for local development
+  jpa:
+    hibernate:
+      # validate: check schema matches entities (safe for development)
+      ddl-auto: validate
+    
+    # Show SQL queries in console (helpful for debugging)
+    show-sql: true
+    
+    # Disable open-in-view pattern
+    open-in-view: false
+    
+    properties:
+      hibernate:
+        # Format SQL for readability
+        format_sql: true
+        
+        # Use MySQL dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# Development server configuration
+server:
+  port: 8080
+
+# Enhanced logging for development
+logging:
+  level:
+    ui.ft.ccit.faculty.transaksi: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

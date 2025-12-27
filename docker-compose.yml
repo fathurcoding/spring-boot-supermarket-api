@@ -1,32 +1,72 @@
+# ========================================
+# Docker Compose Configuration
+# ========================================
+# Multi-container setup for Spring Boot Supermarket API
+# Services: app, mysql, db-init, phpmyadmin
+# 
+# Usage:
+#   docker-compose up --build    # Build and start all services
+#   docker-compose down          # Stop and remove containers
+#   docker-compose logs -f app   # View application logs
+#
+# Requirements:
+#   - Docker Engine 20.10+
+#   - Docker Compose 2.0+
+#   - Set DOCKERHUB_USERNAME environment variable
+
+version: '3.8'
+
 services:
+  # ========================================
+  # Spring Boot Application Service
+  # ========================================
   app:
     image: ${DOCKERHUB_USERNAME}/transaksi-app:latest
     container_name: transaksi-app
+    
+    # Wait for mysql and db-init to be ready
     depends_on:
       mysql:
         condition: service_healthy
       db-init:
         condition: service_completed_successfully
+    
+    # Use docker profile for configuration
     environment:
       SPRING_PROFILES_ACTIVE: docker
+    
+    # Expose application on port 8080
     ports:
       - "8080:8080"
+    
     networks: [backend]
 
+  # ========================================
+  # MySQL Database Service
+  # ========================================
   mysql:
     image: mysql:8.0
     container_name: mysql-db
     restart: unless-stopped
+    
+    # Database credentials and initialization
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: penjualan
       MYSQL_USER: myuser
       MYSQL_PASSWORD: mypassword
+    
+    # Persist database data
     volumes:
       - mysql-data:/var/lib/mysql
+    
+    # Expose MySQL port for external connections
     ports:
       - "3306:3306"
+    
     networks: [backend]
+    
+    # Health check to ensure MySQL is ready
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpassword"]
       interval: 5s
@@ -34,40 +74,76 @@ services:
       retries: 10
       start_period: 30s
 
+  # ========================================
+  # Database Initialization Service
+  # ========================================
+  # One-time service to load initial SQL schema and data
   db-init:
     image: mysql:8.0
     container_name: mysql-init
+    
+    # Wait for MySQL to be healthy
     depends_on:
       mysql:
         condition: service_healthy
+    
+    # MySQL root password for authentication
     environment:
       MYSQL_PWD: rootpassword
+    
+    # Execute SQL script to initialize database
     command: >
       sh -c "
         until mysqladmin ping -hmysql -uroot --silent; do sleep 1; done;
         mysql -hmysql -uroot penjualan < /init/penjualan.sql;
       "
+    
+    # Mount SQL script into container
     volumes:
       - ./db/penjualan.sql:/init/penjualan.sql
+    
+    # Run once and exit
     restart: "no"
+    
     networks: [backend]
 
+  # ========================================
+  # phpMyAdmin Service
+  # ========================================
+  # Web-based MySQL administration tool
+  # Access: http://localhost:8081
+  # Login: root / rootpassword
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
     restart: unless-stopped
+    
+    # Wait for MySQL to be ready
     depends_on:
       mysql:
         condition: service_healthy
+    
+    # Database connection configuration
     environment:
       PMA_HOST: mysql
       PMA_PASSWORD: rootpassword
+    
+    # Expose phpMyAdmin on port 8081
     ports:
       - "8081:80"
+    
     networks: [backend]
 
+# ========================================
+# Networks
+# ========================================
+# Internal network for service communication
 networks:
   backend:
 
+# ========================================
+# Volumes
+# ========================================
+# Persistent storage for MySQL data
 volumes:
   mysql-data:

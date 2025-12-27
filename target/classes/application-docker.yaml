@@ -1,17 +1,48 @@
+# ========================================
+# Docker Profile
+# ========================================
+# Configuration for running application in Docker container
+# Auto-activated when running via docker-compose
+# Database connection points to 'mysql' service defined in docker-compose.yml
+
 spring:
   config:
     activate:
       on-profile: docker
-
+  
+  # Docker MySQL database connection
+  # Host 'mysql' refers to the service name in docker-compose.yml
   datasource:
     url: jdbc:mysql://mysql:3306/penjualan?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Jakarta
     username: myuser
     password: mypassword
-
+  
+  # JPA configuration for Docker environment
   jpa:
     hibernate:
+      # validate: ensures schema matches entities (safe for production)
       ddl-auto: validate
+    
+    # Show SQL queries in logs
     show-sql: true
+    
+    # Disable open-in-view pattern
     open-in-view: false
+    
     properties:
       hibernate:
+        # Format SQL for readability in logs
+        format_sql: true
+        
+        # Use MySQL dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# Server configuration
+server:
+  port: 8080
+
+# Logging for Docker environment
+logging:
+  level:
+    ui.ft.ccit.faculty.transaksi: INFO
+    org.hibernate.SQL: DEBUG
