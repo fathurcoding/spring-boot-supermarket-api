@@ -1,25 +1,26 @@
 package ui.ft.ccit.faculty.transaksi.pelanggan.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.hateoas.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ui.ft.ccit.faculty.transaksi.pelanggan.dto.*;
 import ui.ft.ccit.faculty.transaksi.pelanggan.model.Pelanggan;
 import ui.ft.ccit.faculty.transaksi.pelanggan.view.PelangganService;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-/**
- * REST Controller for Pelanggan endpoints.
- * 
- * @author CCIT Faculty Students
- * @version 0.0.1-SNAPSHOT
- * @since 2024-12-27
- */
 @RestController
 @RequestMapping("/api/pelanggan")
+@Tag(name = "Pelanggan", description = "Customer management endpoints")
 public class PelangganController {
 	
 	private final PelangganService service;
@@ -29,42 +30,69 @@ public class PelangganController {
 	}
 	
 	@GetMapping
-	public CollectionModel<EntityModel<Pelanggan>> getAll() {
-		List<EntityModel<Pelanggan>> pelangganList = service.findAll().stream()
-				.map(this::toModel)
-				.collect(Collectors.toList());
+	@Operation(summary = "Get all customers", description = "Returns a paginated list of all customers")
+	public PagedModel<EntityModel<PelangganResponse>> getAll(
+			@PageableDefault(size = 20, sort = "idPelanggan", direction = Sort.Direction.ASC) Pageable pageable) {
 		
-		return CollectionModel.of(pelangganList,
-				linkTo(methodOn(PelangganController.class).getAll()).withSelfRel());
+		Page<Pelanggan> page = service.findAll(pageable);
+		
+		return PagedModel.of(
+				page.getContent().stream()
+						.map(PelangganMapper::toResponse)
+						.map(this::toModel)
+						.collect(Collectors.toList()),
+				new PagedModel.PageMetadata(
+						page.getSize(),
+						page.getNumber(),
+						page.getTotalElements(),
+						page.getTotalPages()
+				),
+				linkTo(methodOn(PelangganController.class).getAll(pageable)).withSelfRel()
+		);
 	}
 	
 	@GetMapping("/{id}")
-	public EntityModel<Pelanggan> getById(@PathVariable String id) {
-		return toModel(service.findById(id));
+	@Operation(summary = "Get customer by ID")
+	public EntityModel<PelangganResponse> getById(@PathVariable String id) {
+		Pelanggan pelanggan = service.findById(id);
+		return toModel(PelangganMapper.toResponse(pelanggan));
 	}
 	
 	@PostMapping
-	public ResponseEntity<EntityModel<Pelanggan>> create(@RequestBody Pelanggan pelanggan) {
+	@Operation(summary = "Create new customer")
+	public ResponseEntity<EntityModel<PelangganResponse>> create(@Valid @RequestBody CreatePelangganRequest request) {
+		Pelanggan pelanggan = PelangganMapper.toEntity(request);
 		Pelanggan created = service.create(pelanggan);
+		PelangganResponse response = PelangganMapper.toResponse(created);
+		
 		return ResponseEntity
 				.created(linkTo(methodOn(PelangganController.class).getById(created.getIdPelanggan())).toUri())
-				.body(toModel(created));
+				.body(toModel(response));
 	}
 	
 	@PutMapping("/{id}")
-	public EntityModel<Pelanggan> update(@PathVariable String id, @RequestBody Pelanggan pelanggan) {
-		return toModel(service.update(id, pelanggan));
+	@Operation(summary = "Update customer")
+	public EntityModel<PelangganResponse> update(
+			@PathVariable String id,
+			@Valid @RequestBody UpdatePelangganRequest request) {
+		
+		Pelanggan existing = service.findById(id);
+		PelangganMapper.updateEntity(existing, request);
+		Pelanggan updated = service.update(id, existing);
+		
+		return toModel(PelangganMapper.toResponse(updated));
 	}
 	
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Delete customer")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	private EntityModel<Pelanggan> toModel(Pelanggan pelanggan) {
-		return EntityModel.of(pelanggan,
-				linkTo(methodOn(PelangganController.class).getById(pelanggan.getIdPelanggan())).withSelfRel(),
-				linkTo(methodOn(PelangganController.class).getAll()).withRel("pelanggan"));
+	private EntityModel<PelangganResponse> toModel(PelangganResponse response) {
+		return EntityModel.of(response,
+				linkTo(methodOn(PelangganController.class).getById(response.getIdPelanggan())).withSelfRel(),
+				linkTo(methodOn(PelangganController.class).getAll(Pageable.unpaged())).withRel("pelanggan"));
 	}
 }

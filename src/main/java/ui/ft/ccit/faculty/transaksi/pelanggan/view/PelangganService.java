@@ -1,18 +1,13 @@
 package ui.ft.ccit.faculty.transaksi.pelanggan.view;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ui.ft.ccit.faculty.transaksi.pelanggan.model.Pelanggan;
 import ui.ft.ccit.faculty.transaksi.pelanggan.model.PelangganRepository;
 
 import java.util.List;
 
-/**
- * Service layer for Pelanggan business logic.
- * 
- * @author CCIT Faculty Students
- * @version 0.0.1-SNAPSHOT
- * @since 2024-12-27
- */
 @Service
 public class PelangganService {
 	
@@ -24,6 +19,10 @@ public class PelangganService {
 	
 	public List<Pelanggan> findAll() {
 		return repository.findAll();
+	}
+	
+	public Page<Pelanggan> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	public Pelanggan findById(String id) {
@@ -39,13 +38,13 @@ public class PelangganService {
 	}
 	
 	public Pelanggan update(String id, Pelanggan pelanggan) {
-		findById(id); // Verify exists
+		findById(id);
 		pelanggan.setIdPelanggan(id);
 		return repository.save(pelanggan);
 	}
 	
 	public void delete(String id) {
-		findById(id); // Verify exists
+		findById(id);
 		repository.deleteById(id);
 	}
 }

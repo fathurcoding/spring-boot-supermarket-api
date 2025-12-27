@@ -3,6 +3,7 @@ D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\auth\LoginResponse.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\auth\Role.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\controller\BarangController.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\dto\BarangMapper.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\model\Barang.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\model\BarangRepository.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\barang\view\BarangAlreadyExistsException.java
@@ -20,6 +21,7 @@ D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\detailtransaksi\view\DetailTransaksiService.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\GlobalExceptionHandler.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\controller\JenisBarangController.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\dto\JenisBarangMapper.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarang.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarangRepository.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\jenisbarang\view\JenisBarangAlreadyExistsException.java
@@ -38,6 +40,7 @@ D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\view\PelangganNotFoundException.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\view\PelangganService.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\controller\PemasokController.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\dto\PemasokMapper.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\model\Pemasok.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\model\PemasokRepository.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pemasok\view\PemasokAlreadyExistsException.java
