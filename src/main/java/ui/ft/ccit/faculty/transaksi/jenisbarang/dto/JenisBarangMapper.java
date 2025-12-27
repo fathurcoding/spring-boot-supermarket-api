@@ -6,22 +6,19 @@ public class JenisBarangMapper {
 	
 	public static JenisBarang toEntity(CreateJenisBarangRequest request) {
 		if (request == null) return null;
-		JenisBarang jenis = new JenisBarang();
-		jenis.setIdJenisbrg(request.getIdJenisbrg());
-		jenis.setNamaJenisbrg(request.getNamaJenisbrg());
+		JenisBarang jenis = new JenisBarang(request.getIdJenisbrg(), request.getNamaJenisbrg());
 		return jenis;
 	}
 	
 	public static void updateEntity(JenisBarang jenis, UpdateJenisBarangRequest request) {
 		if (request == null || jenis == null) return;
 		if (request.getNamaJenisbrg() != null) {
-			jenis.setNamaJenisbrg(request.getNamaJenisbrg());
+			jenis.setNamaJenis(request.getNamaJenisbrg());
 		}
 	}
 	
 	public static JenisBarangResponse toResponse(JenisBarang jenis) {
 		if (jenis == null) return null;
-		// Corrected line below - removed garbage text
-		return new JenisBarangResponse(jenis.getIdJenisbrg(), jenis.getNamaJenisbrg());
+		return new JenisBarangResponse(jenis.getIdJenisBarang(), jenis.getNamaJenis());
 	}
 }

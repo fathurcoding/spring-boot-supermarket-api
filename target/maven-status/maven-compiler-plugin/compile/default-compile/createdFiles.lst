@@ -1,0 +1,3 @@
+ui\ft\ccit\faculty\transaksi\jenisbarang\dto\CreateJenisBarangRequest.class
+ui\ft\ccit\faculty\transaksi\pemasok\dto\PemasokResponse.class
+ui\ft\ccit\faculty\transaksi\jenisbarang\dto\UpdateJenisBarangRequest.class

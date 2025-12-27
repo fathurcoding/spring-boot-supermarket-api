@@ -1,14 +1,14 @@
 package ui.ft.ccit.faculty.transaksi.transaksi.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TransaksiResponse {
 	private String kodeTransaksi;
-	private LocalDate tglTransaksi;
+	private LocalDateTime tglTransaksi;
 	private String idPelanggan;
 	private String idKaryawan;
 
-	public TransaksiResponse(String kodeTransaksi, LocalDate tglTransaksi, String idPelanggan, String idKaryawan) {
+	public TransaksiResponse(String kodeTransaksi, LocalDateTime tglTransaksi, String idPelanggan, String idKaryawan) {
 		this.kodeTransaksi = kodeTransaksi;
 		this.tglTransaksi = tglTransaksi;
 		this.idPelanggan = idPelanggan;
@@ -16,7 +16,7 @@ public class TransaksiResponse {
 	}
 
 	public String getKodeTransaksi() { return kodeTransaksi; }
-	public LocalDate getTglTransaksi() { return tglTransaksi; }
+	public LocalDateTime getTglTransaksi() { return tglTransaksi; }
 	public String getIdPelanggan() { return idPelanggan; }
 	public String getIdKaryawan() { return idKaryawan; }
 }

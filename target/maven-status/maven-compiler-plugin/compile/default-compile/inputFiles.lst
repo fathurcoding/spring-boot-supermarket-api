@@ -17,6 +17,7 @@ D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\DataNotFoundException.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\detailtransaksi\controller\DetailTransaksiController.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\detailtransaksi\dto\CreateDetailTransaksiRequest.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\detailtransaksi\dto\DetailTransaksiMapper.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\detailtransaksi\dto\DetailTransaksiResponse.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksi.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksiId.java
@@ -43,6 +44,7 @@ D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\karyawan\view\KaryawanService.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\controller\PelangganController.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\dto\CreatePelangganRequest.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\dto\PelangganMapper.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\dto\PelangganResponse.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\dto\UpdatePelangganRequest.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\pelanggan\model\Pelanggan.java
@@ -63,6 +65,7 @@ D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\SecurityConfig.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\transaksi\controller\TransaksiController.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\transaksi\dto\CreateTransaksiRequest.java
+D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\transaksi\dto\TransaksiMapper.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\transaksi\dto\TransaksiResponse.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\transaksi\model\Transaksi.java
 D:\FATHUR\Documents\Perkuliahan\Kelas CCIT\Semester 3\Phase 2\Latihan\transaksi\src\main\java\ui\ft\ccit\faculty\transaksi\transaksi\model\TransaksiRepository.java

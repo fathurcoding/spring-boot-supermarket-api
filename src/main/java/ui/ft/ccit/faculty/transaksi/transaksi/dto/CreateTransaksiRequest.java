@@ -1,7 +1,7 @@
 package ui.ft.ccit.faculty.transaksi.transaksi.dto;
 
 import jakarta.validation.constraints.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CreateTransaksiRequest {
 	@NotBlank(message = "Kode transaksi tidak boleh kosong")
@@ -9,7 +9,7 @@ public class CreateTransaksiRequest {
 	private String kodeTransaksi;
 
 	@NotNull
-	private LocalDate tglTransaksi;
+	private LocalDateTime tglTransaksi;
 
 	@NotBlank
 	private String idPelanggan;
@@ -20,8 +20,8 @@ public class CreateTransaksiRequest {
 	// Getters/Setters
 	public String getKodeTransaksi() { return kodeTransaksi; }
 	public void setKodeTransaksi(String kodeTransaksi) { this.kodeTransaksi = kodeTransaksi; }
-	public LocalDate getTglTransaksi() { return tglTransaksi; }
-	public void setTglTransaksi(LocalDate tglTransaksi) { this.tglTransaksi = tglTransaksi; }
+	public LocalDateTime getTglTransaksi() { return tglTransaksi; }
+	public void setTglTransaksi(LocalDateTime tglTransaksi) { this.tglTransaksi = tglTransaksi; }
 	public String getIdPelanggan() { return idPelanggan; }
 	public void setIdPelanggan(String idPelanggan) { this.idPelanggan = idPelanggan; }
 	public String getIdKaryawan() { return idKaryawan; }
