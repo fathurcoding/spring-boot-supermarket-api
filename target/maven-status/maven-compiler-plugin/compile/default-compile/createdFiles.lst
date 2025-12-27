@@ -11,8 +11,10 @@ ui\ft\ccit\faculty\transaksi\DataAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\karyawan\controller\KaryawanController.class
 ui\ft\ccit\faculty\transaksi\pemasok\model\Pemasok.class
 ui\ft\ccit\faculty\transaksi\pelanggan\view\PelangganNotFoundException.class
+ui\ft\ccit\faculty\transaksi\auth\Role.class
 ui\ft\ccit\faculty\transaksi\pelanggan\controller\PelangganController.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksiId.class
+ui\ft\ccit\faculty\transaksi\auth\LoginResponse.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\controller\DetailTransaksiController.class
 ui\ft\ccit\faculty\transaksi\pemasok\model\PemasokRepository.class
 ui\ft\ccit\faculty\transaksi\pemasok\view\PemasokNotFoundException.class
@@ -25,6 +27,7 @@ ui\ft\ccit\faculty\transaksi\karyawan\view\KaryawanNotFoundException.class
 ui\ft\ccit\faculty\transaksi\GlobalExceptionHandler$ErrorResponse.class
 ui\ft\ccit\faculty\transaksi\pelanggan\model\PelangganRepository.class
 ui\ft\ccit\faculty\transaksi\DataNotFoundException.class
+ui\ft\ccit\faculty\transaksi\auth\AuthController.class
 ui\ft\ccit\faculty\transaksi\jenisbarang\view\JenisBarangService.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\view\DetailTransaksiNotFoundException.class
 ui\ft\ccit\faculty\transaksi\jenisbarang\model\JenisBarangRepository.class
@@ -37,11 +40,13 @@ ui\ft\ccit\faculty\transaksi\karyawan\view\KaryawanAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\pemasok\view\PemasokAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\barang\view\BarangAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\pemasok\controller\PemasokController.class
+ui\ft\ccit\faculty\transaksi\config\OpenAPIConfig.class
 ui\ft\ccit\faculty\transaksi\pelanggan\view\PelangganService.class
 ui\ft\ccit\faculty\transaksi\transaksi\view\TransaksiAlreadyExistsException.class
 ui\ft\ccit\faculty\transaksi\transaksi\model\TransaksiRepository.class
 ui\ft\ccit\faculty\transaksi\SecurityConfig.class
 ui\ft\ccit\faculty\transaksi\pemasok\view\PemasokService.class
+ui\ft\ccit\faculty\transaksi\auth\LoginRequest.class
 ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksiRepository.class
 ui\ft\ccit\faculty\transaksi\TransaksiApplication.class
 ui\ft\ccit\faculty\transaksi\karyawan\model\KaryawanRepository.class

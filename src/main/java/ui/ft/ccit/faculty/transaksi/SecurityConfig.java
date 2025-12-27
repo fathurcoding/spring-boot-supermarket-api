@@ -61,11 +61,17 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						// ========== GET API publik ==========
 						.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+						
+						// ========== Authentication API (Mock Login) ==========
+						.requestMatchers("/api/auth/**").permitAll()
 
 						// ========== Write API perlu token ==========
 						.requestMatchers(HttpMethod.POST, "/api/**").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/api/**").authenticated()
 						.requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
+
+						// ========== Swagger/OpenAPI Documentation ==========
+						.requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
 
 						// Endpoint umum tanpa auth
 						.requestMatchers("/", "/error", "/actuator/health").permitAll()
