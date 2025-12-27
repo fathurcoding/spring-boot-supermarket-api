@@ -5,7 +5,14 @@ API RESTful untuk sistem transaksi jual beli supermarket, dibangun dengan **Spri
 [![Java](https://img.shields.io/badge/Java-25-orange.svg)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-blue.svg)](https://www.mysql.com/)
+[![Build Status](https://github.com/fathurcoding/spring-boot-supermarket-api/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/fathurcoding/spring-boot-supermarket-api/actions)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+**🔗 Quick Links:**
+- 📚 [API Documentation (Swagger UI)](http://localhost:8080/swagger-ui.html) - Interactive API docs
+- 🔍 [API Specs (OpenAPI)](http://localhost:8080/v3/api-docs) - JSON/YAML format
+- 🧪 [HAL Explorer](http://localhost:8080/) - HATEOAS browser
+
 
 ---
 
@@ -27,15 +34,24 @@ API RESTful untuk sistem transaksi jual beli supermarket, dibangun dengan **Spri
 
 ## ✨ Features
 
+### Core Features
 - ✅ RESTful API dengan HATEOAS (Hypermedia as the Engine of Application State)
+- ✅ **Interactive API Documentation** dengan Swagger/OpenAPI UI
 - ✅ JWT Authentication dengan OAuth2 Resource Server
+- ✅ **Mock Login Endpoint** untuk demo JWT dengan role-based access
 - ✅ Multi-environment configuration (local, docker)
 - ✅ Docker & Docker Compose support
 - ✅ Database migration dengan SQL scripts
 - ✅ HAL Explorer untuk API testing interaktif
 - ✅ Global exception handling
 - ✅ Clean architecture pattern
-- ✅ Ready untuk CI/CD dengan GitHub Actions
+- ✅ **Automated CI/CD** dengan GitHub Actions
+
+### Professional Features (Bonus)
+- 🎁 **Swagger/OpenAPI Documentation** - Interactive API documentation di `/swagger-ui.html`
+- 🎁 **GitHub Actions CI/CD** - Automated build, test, dan artifacts
+- 🎁 **JWT Mock Authentication** - Demo login dengan 3 user roles (ADMIN, MANAGER, CASHIER)
+
 
 ---
 
