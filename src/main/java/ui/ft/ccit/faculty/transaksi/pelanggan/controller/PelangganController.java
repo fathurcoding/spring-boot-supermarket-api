@@ -1,6 +1,7 @@
 package ui.ft.ccit.faculty.transaksi.pelanggan.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -30,11 +31,17 @@ public class PelangganController {
 	}
 	
 	@GetMapping
-	@Operation(summary = "Get all customers", description = "Returns a paginated list of all customers")
+	@Operation(summary = "Get all customers", description = "Returns a paginated list of customers, optionally filtered by name")
 	public PagedModel<EntityModel<PelangganResponse>> getAll(
+			@Parameter(description = "Optional name to search for") @RequestParam(required = false) String nama,
 			@PageableDefault(size = 20, sort = "idPelanggan", direction = Sort.Direction.ASC) Pageable pageable) {
 		
-		Page<Pelanggan> page = service.findAll(pageable);
+		Page<Pelanggan> page;
+		if (nama != null && !nama.isEmpty()) {
+			page = service.searchByName(nama, pageable);
+		} else {
+			page = service.findAll(pageable);
+		}
 		
 		return PagedModel.of(
 				page.getContent().stream()
@@ -47,7 +54,7 @@ public class PelangganController {
 						page.getTotalElements(),
 						page.getTotalPages()
 				),
-				linkTo(methodOn(PelangganController.class).getAll(pageable)).withSelfRel()
+				linkTo(methodOn(PelangganController.class).getAll(nama, pageable)).withSelfRel()
 		);
 	}
 	
@@ -93,6 +100,6 @@ public class PelangganController {
 	private EntityModel<PelangganResponse> toModel(PelangganResponse response) {
 		return EntityModel.of(response,
 				linkTo(methodOn(PelangganController.class).getById(response.getIdPelanggan())).withSelfRel(),
-				linkTo(methodOn(PelangganController.class).getAll(Pageable.unpaged())).withRel("pelanggan"));
+				linkTo(methodOn(PelangganController.class).getAll(null, Pageable.unpaged())).withRel("pelanggan"));
 	}
 }

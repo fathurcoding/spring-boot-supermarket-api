@@ -1,12 +1,13 @@
 package ui.ft.ccit.faculty.transaksi.barang.view;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ui.ft.ccit.faculty.transaksi.DataAlreadyExistsException;
 import ui.ft.ccit.faculty.transaksi.DataNotFoundException;
 import ui.ft.ccit.faculty.transaksi.barang.model.Barang;
 import ui.ft.ccit.faculty.transaksi.barang.model.BarangRepository;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class BarangService {
     public List<Barang> getAll() {
         return barangRepository.findAll();
     }
+    
+    public Page<Barang> getAll(Pageable pageable) {
+        return barangRepository.findAll(pageable);
+    }
 
     public Barang getById(String id) {
         return barangRepository.findById(id)
@@ -31,6 +36,10 @@ public class BarangService {
 
     public List<Barang> searchByNama(String keyword) {
         return barangRepository.findByNamaContainingIgnoreCase(keyword);
+    }
+    
+    public Page<Barang> searchByNama(String keyword, Pageable pageable) {
+        return barangRepository.findByNamaContainingIgnoreCase(keyword, pageable);
     }
 
     // CREATE
@@ -50,13 +59,21 @@ public class BarangService {
     public Barang update(String id, Barang updated) {
         Barang existing = getById(id); // akan lempar DataNotFoundException
 
-        existing.setNama(updated.getNama());
-        existing.setStok(updated.getStok());
-        existing.setHarga(updated.getHarga());
-        existing.setPersenLaba(updated.getPersenLaba());
-        existing.setDiskon(updated.getDiskon());
-        existing.setIdJenisBarang(updated.getIdJenisBarang());
-        existing.setIdPemasok(updated.getIdPemasok());
+        // Only update fields if they are not null / managed logic
+        // But since we are passing 'updated' entity from Controller (mapped from DTO), 
+        // we can rely on Mapper logic OR manually set here. 
+        // To keep Service clean, we assume 'updated' contains the new state to apply 
+        // OR we use the mapper in Service?
+        // Ideally: Controller maps DTO -> Entity, Service handles business logic.
+        // The previous implementation did manual setting here. Let's keep it robust.
+        
+        if (updated.getNama() != null) existing.setNama(updated.getNama());
+        if (updated.getStok() != null) existing.setStok(updated.getStok());
+        if (updated.getHarga() != null) existing.setHarga(updated.getHarga());
+        if (updated.getPersenLaba() != null) existing.setPersenLaba(updated.getPersenLaba());
+        if (updated.getDiskon() != null) existing.setDiskon(updated.getDiskon());
+        if (updated.getIdJenisBarang() != null) existing.setIdJenisBarang(updated.getIdJenisBarang());
+        if (updated.getIdPemasok() != null) existing.setIdPemasok(updated.getIdPemasok());
 
         return barangRepository.save(existing);
     }

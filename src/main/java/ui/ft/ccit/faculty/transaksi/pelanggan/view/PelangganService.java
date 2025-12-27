@@ -24,6 +24,10 @@ public class PelangganService {
 	public Page<Pelanggan> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
+
+    public Page<Pelanggan> searchByName(String name, Pageable pageable) {
+        return repository.findByNamaContainingIgnoreCase(name, pageable);
+    }
 	
 	public Pelanggan findById(String id) {
 		return repository.findById(id)

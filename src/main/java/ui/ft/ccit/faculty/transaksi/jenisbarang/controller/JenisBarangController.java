@@ -7,8 +7,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.hateoas.CollectionModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ui.ft.ccit.faculty.transaksi.jenisbarang.dto.CreateJenisBarangRequest;
@@ -19,7 +23,6 @@ import ui.ft.ccit.faculty.transaksi.jenisbarang.model.JenisBarang;
 import ui.ft.ccit.faculty.transaksi.jenisbarang.view.JenisBarangService;
 
 import java.net.URI;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -37,15 +40,31 @@ public class JenisBarangController {
     }
 
     @GetMapping
-    @Operation(summary = "Get all product categories", description = "Retrieves a list of all product categories")
-    public CollectionModel<EntityModel<JenisBarangResponse>> getAll() {
-        List<EntityModel<JenisBarangResponse>> jenisList = service.getAll().stream()
-                .map(jenis -> EntityModel.of(JenisBarangMapper.toResponse(jenis),
-                        linkTo(methodOn(JenisBarangController.class).getById(jenis.getIdJenisBarang())).withSelfRel(),
-                        linkTo(methodOn(JenisBarangController.class).getAll()).withRel("jenis-barang")))
-                .collect(Collectors.toList());
-
-        return CollectionModel.of(jenisList, linkTo(methodOn(JenisBarangController.class).getAll()).withSelfRel());
+    @Operation(summary = "Get all product categories", description = "Retrieves a paginated list of product categories, optionally filtered by name")
+    public PagedModel<EntityModel<JenisBarangResponse>> getAll(
+            @Parameter(description = "Optional name to search for") @RequestParam(required = false) String nama,
+            @PageableDefault(size = 20, sort = "idJenisBarang", direction = Sort.Direction.ASC) Pageable pageable) {
+        
+        Page<JenisBarang> page;
+        if (nama != null && !nama.isEmpty()) {
+            page = service.searchByNama(nama, pageable);
+        } else {
+            page = service.getAll(pageable);
+        }
+        
+        return PagedModel.of(
+                page.getContent().stream()
+                        .map(JenisBarangMapper::toResponse)
+                        .map(this::toModel)
+                        .collect(Collectors.toList()),
+                new PagedModel.PageMetadata(
+                        page.getSize(),
+                        page.getNumber(),
+                        page.getTotalElements(),
+                        page.getTotalPages()
+                ),
+                linkTo(methodOn(JenisBarangController.class).getAll(nama, pageable)).withSelfRel()
+        );
     }
 
     @GetMapping("/{id}")
@@ -54,9 +73,7 @@ public class JenisBarangController {
     @ApiResponse(responseCode = "404", description = "Category not found")
     public EntityModel<JenisBarangResponse> getById(@Parameter(description = "ID of the category") @PathVariable Integer id) {
         JenisBarang jenis = service.getById(id);
-        return EntityModel.of(JenisBarangMapper.toResponse(jenis),
-                linkTo(methodOn(JenisBarangController.class).getById(id)).withSelfRel(),
-                linkTo(methodOn(JenisBarangController.class).getAll()).withRel("jenis-barang"));
+        return toModel(JenisBarangMapper.toResponse(jenis));
     }
 
     @PostMapping
@@ -64,9 +81,7 @@ public class JenisBarangController {
     @ApiResponse(responseCode = "201", description = "Category created successfully")
     public ResponseEntity<EntityModel<JenisBarangResponse>> create(@Valid @RequestBody CreateJenisBarangRequest request) {
         JenisBarang saved = service.save(JenisBarangMapper.toEntity(request));
-        EntityModel<JenisBarangResponse> model = EntityModel.of(JenisBarangMapper.toResponse(saved),
-                linkTo(methodOn(JenisBarangController.class).getById(saved.getIdJenisBarang())).withSelfRel(),
-                linkTo(methodOn(JenisBarangController.class).getAll()).withRel("jenis-barang"));
+        EntityModel<JenisBarangResponse> model = toModel(JenisBarangMapper.toResponse(saved));
 
         return ResponseEntity.created(URI.create(model.getRequiredLink("self").getHref())).body(model);
     }
@@ -74,21 +89,12 @@ public class JenisBarangController {
     @PutMapping("/{id}")
     @Operation(summary = "Update a category", description = "Updates an existing product category")
     public ResponseEntity<EntityModel<JenisBarangResponse>> update(@PathVariable Integer id, @Valid @RequestBody UpdateJenisBarangRequest request) {
-        JenisBarang updated = service.update(id, JenisBarangMapper.toEntity(new CreateJenisBarangRequest())); // Hack for now, better to update properly
-        // Actually, service.update expects Entity, but we have UpdateRequest.
-        // Wait, service.update signature is `update(Integer id, JenisBarang updated)`.
-        // We should probably change Service to accept UpdateRequest or handle mapping here.
-        // But for now, let's map request -> to temp entity helper?
-        // Service.update logic is: `existing.setNamaJenis(updated.getNamaJenis());`
+        // Fix update logic using a temporary entity helper
+        JenisBarang temp = new JenisBarang();
+        JenisBarangMapper.updateEntity(temp, request);
         
-        // Let's create a temp entity for passing data
-        JenisBarang temp = new JenisBarang(id, request.getNamaJenisbrg());
         JenisBarang result = service.update(id, temp);
-
-        EntityModel<JenisBarangResponse> model = EntityModel.of(JenisBarangMapper.toResponse(result),
-                linkTo(methodOn(JenisBarangController.class).getById(id)).withSelfRel(),
-                linkTo(methodOn(JenisBarangController.class).getAll()).withRel("jenis-barang"));
-        return ResponseEntity.ok(model);
+        return ResponseEntity.ok(toModel(JenisBarangMapper.toResponse(result)));
     }
 
     @DeleteMapping("/{id}")
@@ -97,5 +103,11 @@ public class JenisBarangController {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    private EntityModel<JenisBarangResponse> toModel(JenisBarangResponse response) {
+        return EntityModel.of(response,
+                linkTo(methodOn(JenisBarangController.class).getById(response.getIdJenisBarang())).withSelfRel(),
+                linkTo(methodOn(JenisBarangController.class).getAll(null, Pageable.unpaged())).withRel("jenis-barang"));
     }
 }

@@ -5,6 +5,8 @@ import ui.ft.ccit.faculty.transaksi.DataNotFoundException;
 import ui.ft.ccit.faculty.transaksi.jenisbarang.model.JenisBarang;
 import ui.ft.ccit.faculty.transaksi.jenisbarang.model.JenisBarangRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,10 @@ public class JenisBarangService {
     public List<JenisBarang> getAll() {
         return repository.findAll();
     }
+    
+    public Page<JenisBarang> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 
     public JenisBarang getById(Integer id) {
         return repository.findById(id)
@@ -31,6 +37,10 @@ public class JenisBarangService {
 
     public List<JenisBarang> searchByNama(String keyword) {
         return repository.findByNamaJenisContainingIgnoreCase(keyword);
+    }
+    
+    public Page<JenisBarang> searchByNama(String keyword, Pageable pageable) {
+        return repository.findByNamaJenisContainingIgnoreCase(keyword, pageable);
     }
 
     // CREATE
@@ -44,7 +54,11 @@ public class JenisBarangService {
     // UPDATE
     public JenisBarang update(Integer id, JenisBarang updated) {
         JenisBarang existing = getById(id);
-        existing.setNamaJenis(updated.getNamaJenis());
+        
+        if (updated.getNamaJenis() != null) {
+            existing.setNamaJenis(updated.getNamaJenis());
+        }
+        
         return repository.save(existing);
     }
 
