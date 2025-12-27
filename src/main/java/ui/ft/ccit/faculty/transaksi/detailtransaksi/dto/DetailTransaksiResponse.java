@@ -1,0 +1,24 @@
+package ui.ft.ccit.faculty.transaksi.detailtransaksi.dto;
+
+public class DetailTransaksiResponse {
+	private String kodeTransaksi;
+	private String idBarang;
+	private Short jumlah;
+	
+	public DetailTransaksiResponse() {}
+	
+	public DetailTransaksiResponse(String kodeTransaksi, String idBarang, Short jumlah) {
+		this.kodeTransaksi = kodeTransaksi;
+		this.idBarang = idBarang;
+		this.jumlah = jumlah;
+	}
+	
+	public String getKodeTransaksi() { return kodeTransaksi; }
+	public void setKodeTransaksi(String kodeTransaksi) { this.kodeTransaksi = kodeTransaksi; }
+	
+	public String getIdBarang() { return idBarang; }
+	public void setIdBarang(String idBarang) { this.idBarang = idBarang; }
+	
+	public Short getJumlah() { return jumlah; }
+	public void setJumlah(Short jumlah) { this.jumlah = jumlah; }
+}
