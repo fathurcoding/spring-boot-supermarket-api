@@ -1,5 +1,7 @@
 package ui.ft.ccit.faculty.transaksi.pemasok.view;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ui.ft.ccit.faculty.transaksi.pemasok.model.Pemasok;
@@ -20,8 +22,11 @@ public class PemasokService {
     public List<Pemasok> getAll() {
         return repository.findAll();
     }
+    
+    public Page<Pemasok> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 
-    // REVISI: ID Pemasok bertipe String
     public Pemasok getById(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new PemasokNotFoundException(id));
@@ -30,10 +35,13 @@ public class PemasokService {
     public List<Pemasok> searchByNama(String keyword) {
         return repository.findByNamaPemasokContainingIgnoreCase(keyword);
     }
+    
+    public Page<Pemasok> searchByNama(String keyword, Pageable pageable) {
+        return repository.findByNamaPemasokContainingIgnoreCase(keyword, pageable);
+    }
 
     // CREATE
     public Pemasok save(Pemasok pemasok) {
-        // Validasi ID tidak boleh kosong karena tipe String (bukan auto-increment)
         if (pemasok.getIdPemasok() == null || pemasok.getIdPemasok().isBlank()) {
             throw new IllegalArgumentException("ID Pemasok wajib diisi");
         }
@@ -45,17 +53,13 @@ public class PemasokService {
     }
 
     // UPDATE
-    // REVISI: Parameter id menggunakan String
     public Pemasok update(String id, Pemasok updated) {
-        Pemasok existing = getById(id); // Akan throw Exception jika tidak ketemu
+        Pemasok existing = getById(id);
 
-        // Update semua field data diri pemasok
-        existing.setNamaPemasok(updated.getNamaPemasok());
-        existing.setAlamat(updated.getAlamat());
-        existing.setTelepon(updated.getTelepon());
-        existing.setEmail(updated.getEmail());
-
-        // ID tidak di-update (Primary Key)
+        if (updated.getNamaPemasok() != null) existing.setNamaPemasok(updated.getNamaPemasok());
+        if (updated.getAlamat() != null) existing.setAlamat(updated.getAlamat());
+        if (updated.getTelepon() != null) existing.setTelepon(updated.getTelepon());
+        if (updated.getEmail() != null) existing.setEmail(updated.getEmail());
         
         return repository.save(existing);
     }

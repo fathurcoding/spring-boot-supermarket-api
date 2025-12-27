@@ -1,10 +1,12 @@
-package ui.ft.ccit.faculty.transaksi.jenisbarang.view; // Sesuai struktur folder kamu
+package ui.ft.ccit.faculty.transaksi.jenisbarang.view;
 
-import ui.ft.ccit.faculty.transaksi.DataAlreadyExistsException; // Pastikan exception ini ada
-import ui.ft.ccit.faculty.transaksi.DataNotFoundException;      // Pastikan exception ini ada
+import ui.ft.ccit.faculty.transaksi.DataAlreadyExistsException;
+import ui.ft.ccit.faculty.transaksi.DataNotFoundException;
 import ui.ft.ccit.faculty.transaksi.jenisbarang.model.JenisBarang;
 import ui.ft.ccit.faculty.transaksi.jenisbarang.model.JenisBarangRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +25,12 @@ public class JenisBarangService {
     public List<JenisBarang> getAll() {
         return repository.findAll();
     }
+    
+    public Page<JenisBarang> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 
-    // Ubah parameter id menjadi Byte sesuai Model
-    public JenisBarang getById(Byte id) {
+    public JenisBarang getById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("JenisBarang", id.toString()));
     }
@@ -33,10 +38,13 @@ public class JenisBarangService {
     public List<JenisBarang> searchByNama(String keyword) {
         return repository.findByNamaJenisContainingIgnoreCase(keyword);
     }
+    
+    public Page<JenisBarang> searchByNama(String keyword, Pageable pageable) {
+        return repository.findByNamaJenisContainingIgnoreCase(keyword, pageable);
+    }
 
     // CREATE
     public JenisBarang save(JenisBarang jenisBarang) {
-        // Cek jika ID sudah di-set (biasanya untuk update, tapi kalau create id null/kosong)
         if (jenisBarang.getIdJenisBarang() != null && repository.existsById(jenisBarang.getIdJenisBarang())) {
             throw new DataAlreadyExistsException("JenisBarang", jenisBarang.getIdJenisBarang().toString());
         }
@@ -44,19 +52,18 @@ public class JenisBarangService {
     }
 
     // UPDATE
-    public JenisBarang update(Byte id, JenisBarang updated) {
-        JenisBarang existing = getById(id); // Akan throw DataNotFoundException jika tidak ada
-
-        // Update hanya field yang ada di Model
-        existing.setNamaJenis(updated.getNamaJenis());
-
-        // Field lain (stok, harga, dll) DIHAPUS karena tidak ada di class JenisBarang
-
+    public JenisBarang update(Integer id, JenisBarang updated) {
+        JenisBarang existing = getById(id);
+        
+        if (updated.getNamaJenis() != null) {
+            existing.setNamaJenis(updated.getNamaJenis());
+        }
+        
         return repository.save(existing);
     }
 
     // DELETE
-    public void delete(Byte id) {
+    public void delete(Integer id) {
         if (!repository.existsById(id)) {
             throw new DataNotFoundException("JenisBarang", id.toString());
         }

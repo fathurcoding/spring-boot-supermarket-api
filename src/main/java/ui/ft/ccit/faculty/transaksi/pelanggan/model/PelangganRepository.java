@@ -1,5 +1,7 @@
 package ui.ft.ccit.faculty.transaksi.pelanggan.model;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since 2024-12-27
  */
 public interface PelangganRepository extends JpaRepository<Pelanggan, String> {
+    Page<Pelanggan> findByNamaContainingIgnoreCase(String nama, Pageable pageable);
 }

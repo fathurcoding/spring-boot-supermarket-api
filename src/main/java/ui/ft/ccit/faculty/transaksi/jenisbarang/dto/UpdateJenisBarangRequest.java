@@ -1,5 +1,6 @@
 package ui.ft.ccit.faculty.transaksi.jenisbarang.dto;
 
+<<<<<<< HEAD
 import jakarta.validation.constraints.*;
 
 public class UpdateJenisBarangRequest {
@@ -9,6 +10,11 @@ public class UpdateJenisBarangRequest {
 	
 	public UpdateJenisBarangRequest() {}
 	
+=======
+public class UpdateJenisBarangRequest {
+	private String namaJenisbrg;
+
+>>>>>>> feature/pagination-implementation
 	public String getNamaJenisbrg() { return namaJenisbrg; }
 	public void setNamaJenisbrg(String namaJenisbrg) { this.namaJenisbrg = namaJenisbrg; }
 }

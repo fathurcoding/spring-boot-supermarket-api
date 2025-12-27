@@ -26,17 +26,17 @@ public class Barang {
     private Double diskon = 0.0;
 
     @Column(name = "id_jenis_brg")
-    private Byte idJenisBarang;
+    private Integer idJenisBarang;
 
     @Column(name = "id_pemasok", length = 4)
     private String idPemasok;
 
-    protected Barang() {
-        // for JPA
+    public Barang() {
+        // Public no-arg constructor for Mapper
     }
 
     public Barang(String idBarang, String nama, Short stok, Double harga,
-            Double persenLaba, Byte idJenisBarang, String idPemasok) {
+            Double persenLaba, Integer idJenisBarang, String idPemasok) {
         this.idBarang = idBarang;
         this.nama = nama;
         this.stok = stok;
@@ -49,7 +49,7 @@ public class Barang {
 
     public Barang(String idBarang, String nama, Short stok, Double harga,
             Double persenLaba, Double diskon,
-            Byte idJenisBarang, String idPemasok) {
+            Integer idJenisBarang, String idPemasok) {
         this.idBarang = idBarang;
         this.nama = nama;
         this.stok = stok;
@@ -110,11 +110,11 @@ public class Barang {
         this.diskon = diskon;
     }
 
-    public Byte getIdJenisBarang() {
+    public Integer getIdJenisBarang() {
         return idJenisBarang;
     }
 
-    public void setIdJenisBarang(Byte idJenisBarang) {
+    public void setIdJenisBarang(Integer idJenisBarang) {
         this.idJenisBarang = idJenisBarang;
     }
 

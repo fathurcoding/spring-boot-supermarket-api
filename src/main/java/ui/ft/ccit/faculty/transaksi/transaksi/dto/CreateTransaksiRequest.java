@@ -1,6 +1,7 @@
 package ui.ft.ccit.faculty.transaksi.transaksi.dto;
 
 import jakarta.validation.constraints.*;
+<<<<<<< HEAD
 import java.time.LocalDate;
 
 public class CreateTransaksiRequest {
@@ -32,4 +33,31 @@ public class CreateTransaksiRequest {
 	
 	public String getIdPelanggan() { return idPelanggan; }
 	public void setIdPelanggan(String idPelanggan) { this.idPelanggan = idPelanggan; }
+=======
+import java.time.LocalDateTime;
+
+public class CreateTransaksiRequest {
+	@NotBlank(message = "Kode transaksi tidak boleh kosong")
+	@Pattern(regexp = "J\\d{3}")
+	private String kodeTransaksi;
+
+	@NotNull
+	private LocalDateTime tglTransaksi;
+
+	@NotBlank
+	private String idPelanggan;
+
+	@NotBlank
+	private String idKaryawan;
+
+	// Getters/Setters
+	public String getKodeTransaksi() { return kodeTransaksi; }
+	public void setKodeTransaksi(String kodeTransaksi) { this.kodeTransaksi = kodeTransaksi; }
+	public LocalDateTime getTglTransaksi() { return tglTransaksi; }
+	public void setTglTransaksi(LocalDateTime tglTransaksi) { this.tglTransaksi = tglTransaksi; }
+	public String getIdPelanggan() { return idPelanggan; }
+	public void setIdPelanggan(String idPelanggan) { this.idPelanggan = idPelanggan; }
+	public String getIdKaryawan() { return idKaryawan; }
+	public void setIdKaryawan(String idKaryawan) { this.idKaryawan = idKaryawan; }
+>>>>>>> feature/pagination-implementation
 }

@@ -3,6 +3,7 @@ package ui.ft.ccit.faculty.transaksi.barang.dto;
 public class BarangResponse {
 	private String idBarang;
 	private String nama;
+<<<<<<< HEAD
 	private Short stok;
 	private Double harga;
 	private Double persenLaba;
@@ -15,6 +16,17 @@ public class BarangResponse {
 	
 	public BarangResponse(String idBarang, String nama, Short stok, Double harga, 
 	                      Double persenLaba, Double diskon, Byte idJenisbrg, String idPemasok) {
+=======
+	private Integer stok;
+	private Double harga;
+	private Integer persenLaba;
+	private Integer diskon;
+	private Integer idJenisbrg;
+	private String idPemasok;
+	private Double hargaJual;
+
+	public BarangResponse(String idBarang, String nama, Integer stok, Double harga, Integer persenLaba, Integer diskon, Integer idJenisbrg, String idPemasok) {
+>>>>>>> feature/pagination-implementation
 		this.idBarang = idBarang;
 		this.nama = nama;
 		this.stok = stok;
@@ -25,6 +37,7 @@ public class BarangResponse {
 		this.idPemasok = idPemasok;
 		this.hargaJual = calculateHargaJual(harga, persenLaba, diskon);
 	}
+<<<<<<< HEAD
 	
 	private Double calculateHargaJual(Double harga, Double persenLaba, Double diskon) {
 		if (harga == null) return null;
@@ -68,4 +81,25 @@ public class BarangResponse {
 	
 	public Double getHargaJual() { return hargaJual; }
 	public void setHargaJual(Double hargaJual) { this.hargaJual = hargaJual; }
+=======
+
+	private Double calculateHargaJual(Double harga, Integer persenLaba, Integer diskon) {
+		if (harga == null) return 0.0;
+		double price = harga;
+		if (persenLaba != null) price += price * persenLaba / 100.0;
+		if (diskon != null) price -= price * diskon / 100.0;
+		return price;
+	}
+
+	// Getters
+	public String getIdBarang() { return idBarang; }
+	public String getNama() { return nama; }
+	public Integer getStok() { return stok; }
+	public Double getHarga() { return harga; }
+	public Integer getPersenLaba() { return persenLaba; }
+	public Integer getDiskon() { return diskon; }
+	public Integer getIdJenisbrg() { return idJenisbrg; }
+	public String getIdPemasok() { return idPemasok; }
+	public Double getHargaJual() { return hargaJual; }
+>>>>>>> feature/pagination-implementation
 }
