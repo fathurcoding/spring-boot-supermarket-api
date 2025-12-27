@@ -2,7 +2,8 @@ package ui.ft.ccit.faculty.transaksi.karyawan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import ui.ft.ccit.faculty.transaksi.karyawan.model.Karyawan;
 import ui.ft.ccit.faculty.transaksi.karyawan.model.KaryawanRepository;
 
@@ -17,7 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 0.0.1-SNAPSHOT
  * @since 2024-12-27
  */
-@DataJpaTest
+@SpringBootTest
+@ActiveProfiles("local")
 class KaryawanRepositoryTest {
 	
 	@Autowired

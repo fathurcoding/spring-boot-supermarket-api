@@ -1,0 +1,6 @@
+ui\ft\ccit\faculty\transaksi\karyawan\KaryawanRepositoryTest.class
+ui\ft\ccit\faculty\transaksi\barang\BarangRepositoryTest.class
+ui\ft\ccit\faculty\transaksi\detailtransaksi\DetailTransaksiRepositoryTest.class
+ui\ft\ccit\faculty\transaksi\transaksi\TransaksiRepositoryTest.class
+ui\ft\ccit\faculty\transaksi\TransaksiApplicationTests.class
+ui\ft\ccit\faculty\transaksi\pelanggan\PelangganRepositoryTest.class
