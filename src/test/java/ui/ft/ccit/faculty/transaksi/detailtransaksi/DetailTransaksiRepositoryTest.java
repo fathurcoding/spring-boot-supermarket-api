@@ -22,7 +22,7 @@ class DetailTransaksiRepositoryTest {
 		DetailTransaksiId id = new DetailTransaksiId("J001", "B001");
 		DetailTransaksi detail = repository.findById(id).orElse(null);
 		assertThat(detail).isNotNull();
-		assertThat(detail.getJumlah()).isEqualTo(5);
+		assertThat(detail.getJumlah()).isEqualTo(Short.valueOf("5"));
 		assertThat(detail.getTransaksi().getKodeTransaksi()).isEqualTo("J001");
 		assertThat(detail.getBarang().getIdBarang()).isEqualTo("B001");
 	}

@@ -30,13 +30,13 @@ public class DetailTransaksi {
 	private Barang barang;
 	
 	@Column(name = "jumlah", nullable = false)
-	private Integer jumlah;
+	private Short jumlah;
 	
 	public DetailTransaksi() {
 	}
 	
 	public DetailTransaksi(DetailTransaksiId id, Transaksi transaksi, 
-	                       Barang barang, Integer jumlah) {
+	                       Barang barang, Short jumlah) {
 		this.id = id;
 		this.transaksi = transaksi;
 		this.barang = barang;
@@ -69,11 +69,11 @@ public class DetailTransaksi {
 		this.barang = barang;
 	}
 	
-	public Integer getJumlah() {
+	public Short getJumlah() {
 		return jumlah;
 	}
 	
-	public void setJumlah(Integer jumlah) {
+	public void setJumlah(Short jumlah) {
 		this.jumlah = jumlah;
 	}
 }
