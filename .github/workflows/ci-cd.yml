@@ -32,7 +32,7 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     
     - name: Run Tests (H2)
-      run: mvn test
+      run: mvn test -Dspring.profiles.active=test
     
     - name: Build with Maven
       run: mvn clean package -DskipTests
