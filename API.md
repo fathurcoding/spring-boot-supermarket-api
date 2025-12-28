@@ -499,7 +499,83 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 ---
 
-## 🔗 HATEOAS Links
+## � Reporting API
+
+Base path: `/api/reports`
+
+### Get Daily Revenue
+
+**Request:**
+```http
+GET /api/reports/daily-revenue?startDate=2024-01-01&endDate=2024-01-31 HTTP/1.1
+Host: localhost:8080
+```
+
+**Response: `200 OK`**
+```json
+[
+  {
+    "date": "2024-01-01",
+    "totalRevenue": 1500000.00,
+    "transactionCount": 15
+  },
+  {
+    "date": "2024-01-02",
+    "totalRevenue": 2100000.00,
+    "transactionCount": 20
+  }
+]
+```
+
+### Get Top Selling Products
+
+**Request:**
+```http
+GET /api/reports/top-products?limit=5 HTTP/1.1
+Host: localhost:8080
+```
+
+**Response: `200 OK`**
+```json
+[
+  {
+    "productName": "Chitato",
+    "totalQuantitySold": 500,
+    "totalRevenue": 1750000.00
+  },
+  {
+    "productName": "Pocari Sweat",
+    "totalQuantitySold": 350,
+    "totalRevenue": 2275000.00
+  }
+]
+```
+
+### Get Low Stock Alert
+
+**Request:**
+```http
+GET /api/reports/low-stock?threshold=10 HTTP/1.1
+Host: localhost:8080
+```
+
+**Response: `200 OK`**
+```json
+[
+  {
+    "id_barang": "B005",
+    "nama": "Roti Tawar",
+    "stok": 5,
+    "harga": 12000.0,
+    "persen_laba": 5.0,
+    "diskon": 0.0,
+    "id_jenis_brg": 200,
+    "id_pemasok": "S002"
+  }
+]
+```
+
+## �🔗 HATEOAS Links
 
 Setiap response mengandung `_links` untuk navigation:
 
