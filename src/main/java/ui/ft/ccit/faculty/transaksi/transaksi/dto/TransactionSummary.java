@@ -5,11 +5,14 @@ import java.math.BigDecimal;
 public class TransactionSummary {
     private BigDecimal subtotal;
     private BigDecimal discountAmount;
+    private BigDecimal taxAmount;
     private BigDecimal grandTotal;
 
-    public TransactionSummary(BigDecimal subtotal, BigDecimal discountAmount, BigDecimal grandTotal) {
+    public TransactionSummary(BigDecimal subtotal, BigDecimal discountAmount, BigDecimal taxAmount,
+            BigDecimal grandTotal) {
         this.subtotal = subtotal;
         this.discountAmount = discountAmount;
+        this.taxAmount = taxAmount;
         this.grandTotal = grandTotal;
     }
 
@@ -27,6 +30,14 @@ public class TransactionSummary {
 
     public void setDiscountAmount(BigDecimal discountAmount) {
         this.discountAmount = discountAmount;
+    }
+
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
     }
 
     public BigDecimal getGrandTotal() {

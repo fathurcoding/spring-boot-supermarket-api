@@ -11,8 +11,10 @@ import java.util.List;
 /**
  * Service layer for Karyawan business logic.
  * 
- * <p>Provides CRUD operations for employee management with validation,
- * exception handling, and pagination support.</p>
+ * <p>
+ * Provides CRUD operations for employee management with validation,
+ * exception handling, and pagination support.
+ * </p>
  * 
  * @author CCIT Faculty Students
  * @version 0.0.1-SNAPSHOT
@@ -20,9 +22,9 @@ import java.util.List;
  */
 @Service
 public class KaryawanService {
-	
+
 	private final KaryawanRepository repository;
-	
+
 	/**
 	 * Constructor with dependency injection.
 	 * 
@@ -31,7 +33,7 @@ public class KaryawanService {
 	public KaryawanService(KaryawanRepository repository) {
 		this.repository = repository;
 	}
-	
+
 	/**
 	 * Retrieves all employees.
 	 * 
@@ -40,7 +42,7 @@ public class KaryawanService {
 	public List<Karyawan> findAll() {
 		return repository.findAll();
 	}
-	
+
 	/**
 	 * Retrieves all employees with pagination.
 	 * 
@@ -50,7 +52,18 @@ public class KaryawanService {
 	public Page<Karyawan> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
-	
+
+	/**
+	 * Searches for employees by name with pagination.
+	 * 
+	 * @param name     the name fragment to search for
+	 * @param pageable pagination parameters
+	 * @return page of matching karyawan
+	 */
+	public Page<Karyawan> searchByName(String name, Pageable pageable) {
+		return repository.findByNamaContainingIgnoreCase(name, pageable);
+	}
+
 	/**
 	 * Retrieves an employee by ID.
 	 * 
@@ -62,7 +75,7 @@ public class KaryawanService {
 		return repository.findById(id)
 				.orElseThrow(() -> new KaryawanNotFoundException(id));
 	}
-	
+
 	/**
 	 * Creates a new employee.
 	 * 
@@ -76,11 +89,11 @@ public class KaryawanService {
 		}
 		return repository.save(karyawan);
 	}
-	
+
 	/**
 	 * Updates an existing employee.
 	 * 
-	 * @param id the employee ID to update
+	 * @param id       the employee ID to update
 	 * @param karyawan the updated employee data
 	 * @return the updated karyawan
 	 * @throws KaryawanNotFoundException if karyawan not found
@@ -90,7 +103,7 @@ public class KaryawanService {
 		karyawan.setIdKaryawan(id);
 		return repository.save(karyawan);
 	}
-	
+
 	/**
 	 * Deletes an employee by ID.
 	 * 

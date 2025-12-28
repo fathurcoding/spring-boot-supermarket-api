@@ -54,9 +54,15 @@ public class TransactionCalculationService {
         BigDecimal discountPercentage = getMemberDiscountPercentage(memberId);
         BigDecimal discountAmount = subtotal.multiply(discountPercentage).setScale(2, RoundingMode.HALF_UP);
 
-        BigDecimal grandTotal = subtotal.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal netAmount = subtotal.subtract(discountAmount);
 
-        return new TransactionSummary(subtotal, discountAmount, grandTotal);
+        // Calculate Tax (11% VAT)
+        BigDecimal taxRate = new BigDecimal("0.11");
+        BigDecimal taxAmount = netAmount.multiply(taxRate).setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal grandTotal = netAmount.add(taxAmount).setScale(2, RoundingMode.HALF_UP);
+
+        return new TransactionSummary(subtotal, discountAmount, taxAmount, grandTotal);
     }
 
     private BigDecimal calculateSellingPrice(Barang barang) {

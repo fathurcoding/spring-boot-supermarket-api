@@ -1,6 +1,7 @@
 package ui.ft.ccit.faculty.transaksi.karyawan.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 /**
  * REST Controller for Karyawan endpoints with DTO support and pagination.
  * 
- * <p>Provides CRUD operations for employee management with HATEOAS support,
- * input validation, and pagination capabilities.</p>
+ * <p>
+ * Provides CRUD operations for employee management with HATEOAS support,
+ * input validation, and pagination capabilities.
+ * </p>
  * 
  * @author CCIT Faculty Students
  * @version 0.0.1-SNAPSHOT
@@ -32,26 +35,34 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @RequestMapping("/api/karyawan")
 @Tag(name = "Karyawan", description = "Employee management endpoints")
 public class KaryawanController {
-	
+
 	private final KaryawanService service;
-	
+
 	public KaryawanController(KaryawanService service) {
 		this.service = service;
 	}
-	
+
 	/**
-	 * Get all employees with pagination and HATEOAS links.
+	 * Get all employees with pagination and HATEOAS links, optionally filtered by
+	 * name.
 	 * 
+	 * @param nama     optional name fragment to filter by
 	 * @param pageable pagination parameters (page, size, sort)
 	 * @return paged collection of karyawan responses
 	 */
 	@GetMapping
-	@Operation(summary = "Get all employees", description = "Returns a paginated list of all employees with HATEOAS links")
+	@Operation(summary = "Get all employees", description = "Returns a paginated list of all employees with HATEOAS links, optionally filtered by name")
 	public PagedModel<EntityModel<KaryawanResponse>> getAll(
+			@Parameter(description = "Optional name fragment to search for") @RequestParam(required = false) String nama,
 			@PageableDefault(size = 20, sort = "idKaryawan", direction = Sort.Direction.ASC) Pageable pageable) {
-		
-		Page<Karyawan> page = service.findAll(pageable);
-		
+
+		Page<Karyawan> page;
+		if (nama != null && !nama.isEmpty()) {
+			page = service.searchByName(nama, pageable);
+		} else {
+			page = service.findAll(pageable);
+		}
+
 		return PagedModel.of(
 				page.getContent().stream()
 						.map(KaryawanMapper::toResponse)
@@ -61,12 +72,10 @@ public class KaryawanController {
 						page.getSize(),
 						page.getNumber(),
 						page.getTotalElements(),
-						page.getTotalPages()
-				),
-				linkTo(methodOn(KaryawanController.class).getAll(pageable)).withSelfRel()
-		);
+						page.getTotalPages()),
+				linkTo(methodOn(KaryawanController.class).getAll(nama, pageable)).withSelfRel());
 	}
-	
+
 	/**
 	 * Get employee by ID.
 	 * 
@@ -79,7 +88,7 @@ public class KaryawanController {
 		Karyawan karyawan = service.findById(id);
 		return toModel(KaryawanMapper.toResponse(karyawan));
 	}
-	
+
 	/**
 	 * Create a new employee with validation.
 	 * 
@@ -92,16 +101,16 @@ public class KaryawanController {
 		Karyawan karyawan = KaryawanMapper.toEntity(request);
 		Karyawan created = service.create(karyawan);
 		KaryawanResponse response = KaryawanMapper.toResponse(created);
-		
+
 		return ResponseEntity
 				.created(linkTo(methodOn(KaryawanController.class).getById(created.getIdKaryawan())).toUri())
 				.body(toModel(response));
 	}
-	
+
 	/**
 	 * Update an existing employee with partial update support.
 	 * 
-	 * @param id the employee ID to update
+	 * @param id      the employee ID to update
 	 * @param request the updated employee data (validated, fields optional)
 	 * @return updated karyawan with HATEOAS links
 	 */
@@ -110,14 +119,14 @@ public class KaryawanController {
 	public EntityModel<KaryawanResponse> update(
 			@PathVariable String id,
 			@Valid @RequestBody UpdateKaryawanRequest request) {
-		
+
 		Karyawan existing = service.findById(id);
 		KaryawanMapper.updateEntity(existing, request);
 		Karyawan updated = service.update(id, existing);
-		
+
 		return toModel(KaryawanMapper.toResponse(updated));
 	}
-	
+
 	/**
 	 * Delete an employee.
 	 * 
@@ -130,7 +139,7 @@ public class KaryawanController {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	/**
 	 * Converts KaryawanResponse to EntityModel with HATEOAS links.
 	 * 
@@ -140,6 +149,6 @@ public class KaryawanController {
 	private EntityModel<KaryawanResponse> toModel(KaryawanResponse response) {
 		return EntityModel.of(response,
 				linkTo(methodOn(KaryawanController.class).getById(response.getIdKaryawan())).withSelfRel(),
-				linkTo(methodOn(KaryawanController.class).getAll(Pageable.unpaged())).withRel("karyawan"));
+				linkTo(methodOn(KaryawanController.class).getAll(null, Pageable.unpaged())).withRel("karyawan"));
 	}
 }
