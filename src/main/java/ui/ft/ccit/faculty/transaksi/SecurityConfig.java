@@ -11,26 +11,31 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * Spring Security configuration for the Transaksi API.
  * 
- * <p>This configuration implements JWT-based authentication using OAuth2 Resource Server.
- * The security rules are:</p>
+ * <p>
+ * This configuration implements JWT-based authentication using OAuth2 Resource
+ * Server.
+ * The security rules are:
+ * </p>
  * 
  * <ul>
- *   <li><strong>Public access (no auth required):</strong>
- *     <ul>
- *       <li>All GET requests to /api/**</li>
- *       <li>Root path (/), error pages, health checks</li>
- *     </ul>
- *   </li>
- *   <li><strong>Authenticated access (JWT token required):</strong>
- *     <ul>
- *       <li>POST, PUT, DELETE requests to /api/**</li>
- *       <li>All other requests not explicitly permitted</li>
- *     </ul>
- *   </li>
+ * <li><strong>Public access (no auth required):</strong>
+ * <ul>
+ * <li>All GET requests to /api/**</li>
+ * <li>Root path (/), error pages, health checks</li>
+ * </ul>
+ * </li>
+ * <li><strong>Authenticated access (JWT token required):</strong>
+ * <ul>
+ * <li>POST, PUT, DELETE requests to /api/**</li>
+ * <li>All other requests not explicitly permitted</li>
+ * </ul>
+ * </li>
  * </ul>
  * 
- * <p>JWT tokens are validated against Google OAuth2 issuer:
- * {@code https://accounts.google.com}</p>
+ * <p>
+ * JWT tokens are validated against Google OAuth2 issuer:
+ * {@code https://accounts.google.com}
+ * </p>
  * 
  * @author CCIT Faculty Students
  * @version 0.0.1-SNAPSHOT
@@ -43,12 +48,14 @@ public class SecurityConfig {
 	/**
 	 * Configures the security filter chain.
 	 * 
-	 * <p>Security configuration includes:</p>
+	 * <p>
+	 * Security configuration includes:
+	 * </p>
 	 * <ul>
-	 *   <li>CSRF protection disabled (stateless REST API)</li>
-	 *   <li>Public read access for GET requests</li>
-	 *   <li>JWT authentication for write operations</li>
-	 *   <li>OAuth2 Resource Server with JWT validation</li>
+	 * <li>CSRF protection disabled (stateless REST API)</li>
+	 * <li>Public read access for GET requests</li>
+	 * <li>JWT authentication for write operations</li>
+	 * <li>OAuth2 Resource Server with JWT validation</li>
 	 * </ul>
 	 * 
 	 * @param http the {@link HttpSecurity} to configure
@@ -59,9 +66,12 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
-						// ========== GET API publik ==========
+						// ========== Reports (Secured) ==========
+						.requestMatchers("/api/reports/**").authenticated()
+
+						// ========== GET API publik (General) ==========
 						.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-						
+
 						// ========== Authentication API (Mock Login) ==========
 						.requestMatchers("/api/auth/**").permitAll()
 
