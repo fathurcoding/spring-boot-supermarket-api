@@ -46,10 +46,7 @@
 		<!-- ========================================= -->
 		
 		<!-- Spring Data REST: Expose JPA repositories as REST endpoints -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
+
 
 		<!-- Spring HATEOAS: Hypermedia support (EntityModel, CollectionModel, links) -->
 		<dependency>
@@ -65,10 +62,7 @@
 
 		<!-- HAL Explorer: Web UI to browse and test REST API -->
 		<!-- Access at: http://localhost:8080/explorer/index.html -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-rest-hal-explorer</artifactId>
-		</dependency>
+
 
 		<!-- ========================================= -->
 		<!-- TESTING DEPENDENCIES                     -->
@@ -82,11 +76,7 @@
 		</dependency>
 		
 		<!-- ========================================= -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
 
 		<!-- HATEOAS Test Support: Testing hypermedia responses -->
 		<dependency>
@@ -120,7 +110,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.3.0</version>
+			<version>2.6.0</version>
 		</dependency>
 
 		<!-- ========================================= -->
@@ -147,12 +137,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Spring Boot Test: Main testing framework with JUnit 5 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
 
 		<!-- JPA Test Support: Testing JPA repositories and entities -->
 		<dependency>

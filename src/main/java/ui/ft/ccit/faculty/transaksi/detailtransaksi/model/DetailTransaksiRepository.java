@@ -10,8 +10,8 @@ public interface DetailTransaksiRepository extends JpaRepository<DetailTransaksi
 
     List<DetailTransaksi> findByIdKodeTransaksi(String kodeTransaksi);
 
-    @org.springframework.data.jpa.repository.Query("SELECT new ui.ft.ccit.faculty.transaksi.reporting.dto.TopProductDTO(d.barang.namaBarang, SUM(d.jumlah)) "
+    @org.springframework.data.jpa.repository.Query("SELECT new ui.ft.ccit.faculty.transaksi.reporting.dto.TopProductDTO(d.barang.nama, SUM(d.jumlah)) "
             +
-            "FROM DetailTransaksi d GROUP BY d.barang.namaBarang ORDER BY SUM(d.jumlah) DESC")
+            "FROM DetailTransaksi d GROUP BY d.barang.nama ORDER BY SUM(d.jumlah) DESC")
     List<ui.ft.ccit.faculty.transaksi.reporting.dto.TopProductDTO> findTopSellingProducts(Pageable pageable);
 }

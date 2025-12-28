@@ -3,6 +3,10 @@ package ui.ft.ccit.faculty.transaksi.transaksi.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,6 +49,10 @@ public class TransaksiController {
 
 	@GetMapping
 	@Operation(summary = "Get all transactions", description = "Returns a paginated list of transactions, optionally filtered by code")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PagedModel.class))),
+			@ApiResponse(responseCode = "500", description = "Internal server error")
+	})
 	public PagedModel<EntityModel<TransaksiResponse>> getAll(
 			@Parameter(description = "Optional code to search for") @RequestParam(required = false) String kode,
 			@PageableDefault(size = 20, sort = "tglTransaksi", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -77,6 +85,10 @@ public class TransaksiController {
 
 	@GetMapping("/{kode}")
 	@Operation(summary = "Get transaction by Code")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Transaction found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EntityModel.class))),
+			@ApiResponse(responseCode = "404", description = "Transaction not found")
+	})
 	public EntityModel<TransaksiResponse> getByKode(@PathVariable String kode) {
 		Transaksi transaksi = service.findById(kode);
 		List<ui.ft.ccit.faculty.transaksi.detailtransaksi.model.DetailTransaksi> details = detailService
@@ -88,6 +100,10 @@ public class TransaksiController {
 
 	@GetMapping("/{kode}/summary")
 	@Operation(summary = "Get transaction summary")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Summary retrieved successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TransactionSummary.class))),
+			@ApiResponse(responseCode = "404", description = "Transaction not found")
+	})
 	public ResponseEntity<TransactionSummary> getSummary(@PathVariable String kode) {
 		Transaksi transaksi = service.findById(kode);
 		List<ui.ft.ccit.faculty.transaksi.detailtransaksi.model.DetailTransaksi> details = detailService
@@ -100,6 +116,10 @@ public class TransaksiController {
 
 	@PostMapping
 	@Operation(summary = "Create new transaction")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Transaction created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EntityModel.class))),
+			@ApiResponse(responseCode = "400", description = "Invalid input")
+	})
 	public ResponseEntity<EntityModel<TransaksiResponse>> create(@Valid @RequestBody CreateTransaksiRequest request) {
 		Transaksi transaksi = TransaksiMapper.toEntity(request);
 		Transaksi created = service.create(transaksi);
@@ -111,6 +131,11 @@ public class TransaksiController {
 
 	@PutMapping("/{kode}")
 	@Operation(summary = "Update transaction")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Transaction updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EntityModel.class))),
+			@ApiResponse(responseCode = "400", description = "Invalid input"),
+			@ApiResponse(responseCode = "404", description = "Transaction not found")
+	})
 	public ResponseEntity<EntityModel<TransaksiResponse>> update(
 			@PathVariable String kode, @Valid @RequestBody CreateTransaksiRequest request) {
 
@@ -129,6 +154,10 @@ public class TransaksiController {
 
 	@DeleteMapping("/{kode}")
 	@Operation(summary = "Delete transaction")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Transaction deleted successfully"),
+			@ApiResponse(responseCode = "404", description = "Transaction not found")
+	})
 	public ResponseEntity<Void> delete(@PathVariable String kode) {
 		service.delete(kode);
 		return ResponseEntity.noContent().build();

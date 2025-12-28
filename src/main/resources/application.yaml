@@ -13,8 +13,8 @@ spring:
   # Options: local, docker
   # - local: for development on local machine
   # - docker: for running in Docker container
-  profiles:
-    active: local
+  # profiles:
+  #   active: local
   
   # Database configuration
   datasource:
