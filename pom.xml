@@ -140,6 +140,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- H2 Database: In-memory database for testing -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Spring Boot Test: Main testing framework with JUnit 5 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

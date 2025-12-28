@@ -12,22 +12,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for KaryawanRepository.
  * 
- * <p>Tests database operations for Karyawan entity.</p>
+ * <p>
+ * Tests database operations for Karyawan entity.
+ * </p>
  * 
  * @author CCIT Faculty Students
  * @version 0.0.1-SNAPSHOT
  * @since 2024-12-27
  */
 @SpringBootTest
-@ActiveProfiles("local")
+@ActiveProfiles("test")
+@org.springframework.transaction.annotation.Transactional
 class KaryawanRepositoryTest {
-	
+
 	@Autowired
 	private KaryawanRepository repository;
-	
-	/**
-	 * Test finding karyawan by ID.
-	 */
+
+	@org.junit.jupiter.api.BeforeEach
+	void setUp() {
+		// idKaryawan, nama, jenisKelamin, alamat, telepon, tglLahir, gaji
+		repository.save(
+				new Karyawan("K001", "Tuti", "P", "Alamat T", "081", java.time.LocalDate.of(1990, 1, 1), 3000000.0));
+	}
+
 	@Test
 	void shouldFindKaryawanById() {
 		Karyawan karyawan = repository.findById("K001").orElse(null);
@@ -35,25 +42,19 @@ class KaryawanRepositoryTest {
 		assertThat(karyawan.getNama()).isEqualTo("Tuti");
 		assertThat(karyawan.getJenisKelamin()).isEqualTo("P");
 	}
-	
-	/**
-	 * Test finding all karyawan.
-	 */
+
 	@Test
 	void shouldFindAllKaryawan() {
 		var karyawanList = repository.findAll();
 		assertThat(karyawanList).isNotEmpty();
-		assertThat(karyawanList.size()).isGreaterThanOrEqualTo(8);
+		assertThat(karyawanList.size()).isGreaterThanOrEqualTo(1);
 	}
-	
-	/**
-	 * Test karyawan existence check.
-	 */
+
 	@Test
 	void shouldCheckKaryawanExists() {
 		boolean exists = repository.existsById("K001");
 		assertThat(exists).isTrue();
-		
+
 		boolean notExists = repository.existsById("K999");
 		assertThat(notExists).isFalse();
 	}

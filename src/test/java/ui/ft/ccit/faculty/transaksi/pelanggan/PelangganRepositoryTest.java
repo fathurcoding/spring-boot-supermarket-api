@@ -10,12 +10,20 @@ import ui.ft.ccit.faculty.transaksi.pelanggan.model.PelangganRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("local")
+@ActiveProfiles("test")
+@org.springframework.transaction.annotation.Transactional
 class PelangganRepositoryTest {
-	
+
 	@Autowired
 	private PelangganRepository repository;
-	
+
+	@org.junit.jupiter.api.BeforeEach
+	void setUp() {
+		// idPelanggan, nama, jenisKelamin, alamat, telepon, tglLahir, jenisPelanggan
+		repository
+				.save(new Pelanggan("P001", "Andi", "L", "Alamat A", "0812", java.time.LocalDate.of(1995, 5, 5), "S"));
+	}
+
 	@Test
 	void shouldFindPelangganById() {
 		Pelanggan pelanggan = repository.findById("P001").orElse(null);
@@ -23,11 +31,11 @@ class PelangganRepositoryTest {
 		assertThat(pelanggan.getNama()).isEqualTo("Andi");
 		assertThat(pelanggan.getJenisPelanggan()).isEqualTo("S");
 	}
-	
+
 	@Test
 	void shouldFindAllPelanggan() {
 		var pelangganList = repository.findAll();
 		assertThat(pelangganList).isNotEmpty();
-		assertThat(pelangganList.size()).isGreaterThanOrEqualTo(8);
+		assertThat(pelangganList.size()).isGreaterThanOrEqualTo(1);
 	}
 }
