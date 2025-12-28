@@ -44,22 +44,32 @@ public class GlobalExceptionHandler {
                 null);
     }
 
+    @ExceptionHandler(ui.ft.ccit.faculty.transaksi.barang.view.InsufficientStockException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // 400
+    public ErrorResponse handleInsufficientStock(
+            ui.ft.ccit.faculty.transaksi.barang.view.InsufficientStockException ex) {
+        return new ErrorResponse(
+                "INSUFFICIENT_STOCK",
+                ex.getMessage(),
+                "Barang",
+                null);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ValidationErrorResponse handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> fieldErrors = new HashMap<>();
-        
+
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             fieldErrors.put(error.getField(), error.getDefaultMessage());
         }
-        
+
         String message = "Validation failed for " + ex.getBindingResult().getObjectName();
-        
+
         return new ValidationErrorResponse(
                 "VALIDATION_ERROR",
                 message,
-                fieldErrors
-        );
+                fieldErrors);
     }
 
     @ExceptionHandler(Exception.class)
@@ -107,32 +117,32 @@ public class GlobalExceptionHandler {
             return timestamp;
         }
     }
-    
+
     public static class ValidationErrorResponse {
         private final String code;
         private final String message;
         private final Map<String, String> fieldErrors;
         private final LocalDateTime timestamp;
-        
+
         public ValidationErrorResponse(String code, String message, Map<String, String> fieldErrors) {
             this.code = code;
             this.message = message;
             this.fieldErrors = fieldErrors;
             this.timestamp = LocalDateTime.now();
         }
-        
+
         public String getCode() {
             return code;
         }
-        
+
         public String getMessage() {
             return message;
         }
-        
+
         public Map<String, String> getFieldErrors() {
             return fieldErrors;
         }
-        
+
         public LocalDateTime getTimestamp() {
             return timestamp;
         }

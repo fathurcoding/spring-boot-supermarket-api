@@ -21,13 +21,16 @@ public class DetailTransaksiService {
 	private final DetailTransaksiRepository repository;
 	private final TransaksiRepository transaksiRepository;
 	private final BarangRepository barangRepository;
+	private final ui.ft.ccit.faculty.transaksi.barang.view.StockManagementService stockManagementService;
 
 	public DetailTransaksiService(DetailTransaksiRepository repository,
 			TransaksiRepository transaksiRepository,
-			BarangRepository barangRepository) {
+			BarangRepository barangRepository,
+			ui.ft.ccit.faculty.transaksi.barang.view.StockManagementService stockManagementService) {
 		this.repository = repository;
 		this.transaksiRepository = transaksiRepository;
 		this.barangRepository = barangRepository;
+		this.stockManagementService = stockManagementService;
 	}
 
 	public List<DetailTransaksi> findAll() {
@@ -40,6 +43,10 @@ public class DetailTransaksiService {
 
 	public Page<DetailTransaksi> findByKodeTransaksi(String kodeTransaksi, Pageable pageable) {
 		return repository.findByIdKodeTransaksi(kodeTransaksi, pageable);
+	}
+
+	public List<DetailTransaksi> findByKodeTransaksi(String kodeTransaksi) {
+		return repository.findByIdKodeTransaksi(kodeTransaksi);
 	}
 
 	public DetailTransaksi findById(String kodeTransaksi, String idBarang) {
@@ -58,16 +65,40 @@ public class DetailTransaksiService {
 
 		validateRelations(detailTransaksi);
 
-		return repository.save(detailTransaksi);
+		// Validate stock availability
+		stockManagementService.validateStock(detailTransaksi.getId().getIdBarang(), detailTransaksi.getJumlah());
+
+		DetailTransaksi saved = repository.save(detailTransaksi);
+
+		// Decrease stock
+		stockManagementService.updateStock(detailTransaksi.getId().getIdBarang(), -detailTransaksi.getJumlah());
+
+		return saved;
 	}
 
 	public DetailTransaksi update(String kodeTransaksi, String idBarang, DetailTransaksi detailTransaksi) {
-		findById(kodeTransaksi, idBarang); // Verify exists
+		DetailTransaksi existing = findById(kodeTransaksi, idBarang); // Verify exists and get old val
 		detailTransaksi.setId(new DetailTransaksiId(kodeTransaksi, idBarang));
 
 		validateRelations(detailTransaksi);
 
-		return repository.save(detailTransaksi);
+		int oldQty = existing.getJumlah();
+		int newQty = detailTransaksi.getJumlah();
+		int diff = newQty - oldQty;
+
+		if (diff > 0) {
+			stockManagementService.validateStock(idBarang, diff);
+		}
+
+		DetailTransaksi saved = repository.save(detailTransaksi);
+
+		// Adjust stock (if diff is positive, inventory decreases, so we pass negative
+		// diff)
+		if (diff != 0) {
+			stockManagementService.updateStock(idBarang, -diff);
+		}
+
+		return saved;
 	}
 
 	private void validateRelations(DetailTransaksi detailTransaksi) {
@@ -80,8 +111,11 @@ public class DetailTransaksiService {
 	}
 
 	public void delete(String kodeTransaksi, String idBarang) {
-		findById(kodeTransaksi, idBarang); // Verify exists
+		DetailTransaksi existing = findById(kodeTransaksi, idBarang); // Verify exists and get value
 		DetailTransaksiId id = new DetailTransaksiId(kodeTransaksi, idBarang);
 		repository.deleteById(id);
+
+		// Restore stock
+		stockManagementService.updateStock(idBarang, existing.getJumlah());
 	}
 }

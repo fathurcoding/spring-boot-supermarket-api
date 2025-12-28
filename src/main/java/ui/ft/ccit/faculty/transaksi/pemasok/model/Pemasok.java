@@ -22,7 +22,7 @@ public class Pemasok {
     @Column(name = "email", length = 255)
     private String email;
 
-    protected Pemasok() {
+    public Pemasok() {
         // untuk JPA
     }
 

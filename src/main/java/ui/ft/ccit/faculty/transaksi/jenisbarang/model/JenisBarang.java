@@ -14,7 +14,7 @@ public class JenisBarang {
     @Column(name = "nama_jenis_brg", length = 255)
     private String namaJenis;
 
-    protected JenisBarang() {
+    public JenisBarang() {
     }
 
     public JenisBarang(Integer idJenisBarang, String namaJenis) {

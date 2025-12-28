@@ -3,20 +3,6 @@ package ui.ft.ccit.faculty.transaksi.barang.dto;
 public class BarangResponse {
 	private String idBarang;
 	private String nama;
-<<<<<<< HEAD
-	private Short stok;
-	private Double harga;
-	private Double persenLaba;
-	private Double diskon;
-	private Byte idJenisbrg;
-	private String idPemasok;
-	private Double hargaJual; // Calculated: harga + (harga * persenLaba / 100) - (harga * diskon / 100)
-	
-	public BarangResponse() {}
-	
-	public BarangResponse(String idBarang, String nama, Short stok, Double harga, 
-	                      Double persenLaba, Double diskon, Byte idJenisbrg, String idPemasok) {
-=======
 	private Integer stok;
 	private Double harga;
 	private Integer persenLaba;
@@ -25,8 +11,8 @@ public class BarangResponse {
 	private String idPemasok;
 	private Double hargaJual;
 
-	public BarangResponse(String idBarang, String nama, Integer stok, Double harga, Integer persenLaba, Integer diskon, Integer idJenisbrg, String idPemasok) {
->>>>>>> feature/pagination-implementation
+	public BarangResponse(String idBarang, String nama, Integer stok, Double harga, Integer persenLaba, Integer diskon,
+			Integer idJenisbrg, String idPemasok) {
 		this.idBarang = idBarang;
 		this.nama = nama;
 		this.stok = stok;
@@ -37,69 +23,52 @@ public class BarangResponse {
 		this.idPemasok = idPemasok;
 		this.hargaJual = calculateHargaJual(harga, persenLaba, diskon);
 	}
-<<<<<<< HEAD
-	
-	private Double calculateHargaJual(Double harga, Double persenLaba, Double diskon) {
-		if (harga == null) return null;
-		double hargaDenganLaba = harga + (harga * (persenLaba != null ? persenLaba : 0) / 100);
-		return hargaDenganLaba - (hargaDenganLaba * (diskon != null ? diskon : 0) / 100);
-	}
-	
-	// Getters and Setters
-	public String getIdBarang() { return idBarang; }
-	public void setIdBarang(String idBarang) { this.idBarang = idBarang; }
-	
-	public String getNama() { return nama; }
-	public void setNama(String nama) { this.nama = nama; }
-	
-	public Short getStok() { return stok; }
-	public void setStok(Short stok) { this.stok = stok; }
-	
-	public Double getHarga() { return harga; }
-	public void setHarga(Double harga) { 
-		this.harga = harga;
-		this.hargaJual = calculateHargaJual(harga, persenLaba, diskon);
-	}
-	
-	public Double getPersenLaba() { return persenLaba; }
-	public void setPersenLaba(Double persenLaba) { 
-		this.persenLaba = persenLaba;
-		this.hargaJual = calculateHargaJual(harga, persenLaba, diskon);
-	}
-	
-	public Double getDiskon() { return diskon; }
-	public void setDiskon(Double diskon) { 
-		this.diskon = diskon;
-		this.hargaJual = calculateHargaJual(harga, persenLaba, diskon);
-	}
-	
-	public Byte getIdJenisbrg() { return idJenisbrg; }
-	public void setIdJenisbrg(Byte idJenisbrg) { this.idJenisbrg = idJenisbrg; }
-	
-	public String getIdPemasok() { return idPemasok; }
-	public void setIdPemasok(String idPemasok) { this.idPemasok = idPemasok; }
-	
-	public Double getHargaJual() { return hargaJual; }
-	public void setHargaJual(Double hargaJual) { this.hargaJual = hargaJual; }
-=======
 
 	private Double calculateHargaJual(Double harga, Integer persenLaba, Integer diskon) {
-		if (harga == null) return 0.0;
+		if (harga == null)
+			return 0.0;
 		double price = harga;
-		if (persenLaba != null) price += price * persenLaba / 100.0;
-		if (diskon != null) price -= price * diskon / 100.0;
+		if (persenLaba != null)
+			price += price * persenLaba / 100.0;
+		if (diskon != null)
+			price -= price * diskon / 100.0;
 		return price;
 	}
 
 	// Getters
-	public String getIdBarang() { return idBarang; }
-	public String getNama() { return nama; }
-	public Integer getStok() { return stok; }
-	public Double getHarga() { return harga; }
-	public Integer getPersenLaba() { return persenLaba; }
-	public Integer getDiskon() { return diskon; }
-	public Integer getIdJenisbrg() { return idJenisbrg; }
-	public String getIdPemasok() { return idPemasok; }
-	public Double getHargaJual() { return hargaJual; }
->>>>>>> feature/pagination-implementation
+	public String getIdBarang() {
+		return idBarang;
+	}
+
+	public String getNama() {
+		return nama;
+	}
+
+	public Integer getStok() {
+		return stok;
+	}
+
+	public Double getHarga() {
+		return harga;
+	}
+
+	public Integer getPersenLaba() {
+		return persenLaba;
+	}
+
+	public Integer getDiskon() {
+		return diskon;
+	}
+
+	public Integer getIdJenisbrg() {
+		return idJenisbrg;
+	}
+
+	public String getIdPemasok() {
+		return idPemasok;
+	}
+
+	public Double getHargaJual() {
+		return hargaJual;
+	}
 }

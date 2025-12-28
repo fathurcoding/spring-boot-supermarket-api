@@ -13,11 +13,14 @@ import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ui.ft.ccit.faculty.transaksi.transaksi.dto.CreateTransaksiRequest;
+import ui.ft.ccit.faculty.transaksi.transaksi.dto.TransactionSummary;
 import ui.ft.ccit.faculty.transaksi.transaksi.dto.TransaksiMapper;
 import ui.ft.ccit.faculty.transaksi.transaksi.dto.TransaksiResponse;
 import ui.ft.ccit.faculty.transaksi.transaksi.model.Transaksi;
 import ui.ft.ccit.faculty.transaksi.transaksi.view.TransaksiService;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -29,9 +32,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class TransaksiController {
 
 	private final TransaksiService service;
+	private final ui.ft.ccit.faculty.transaksi.detailtransaksi.view.DetailTransaksiService detailService;
+	private final ui.ft.ccit.faculty.transaksi.transaksi.view.TransactionCalculationService calculationService;
 
-	public TransaksiController(TransaksiService service) {
+	public TransaksiController(TransaksiService service,
+			ui.ft.ccit.faculty.transaksi.detailtransaksi.view.DetailTransaksiService detailService,
+			ui.ft.ccit.faculty.transaksi.transaksi.view.TransactionCalculationService calculationService) {
 		this.service = service;
+		this.detailService = detailService;
+		this.calculationService = calculationService;
 	}
 
 	@GetMapping
@@ -49,7 +58,13 @@ public class TransaksiController {
 
 		return PagedModel.of(
 				page.getContent().stream()
-						.map(TransaksiMapper::toResponse)
+						.map(t -> {
+							List<ui.ft.ccit.faculty.transaksi.detailtransaksi.model.DetailTransaksi> details = detailService
+									.findByKodeTransaksi(t.getKodeTransaksi());
+							String pelangganId = (t.getPelanggan() != null) ? t.getPelanggan().getIdPelanggan() : null;
+							BigDecimal total = calculationService.calculateTotal(details, pelangganId);
+							return TransaksiMapper.toResponse(t, total);
+						})
 						.map(this::toModel)
 						.collect(Collectors.toList()),
 				new PagedModel.PageMetadata(
@@ -64,7 +79,23 @@ public class TransaksiController {
 	@Operation(summary = "Get transaction by Code")
 	public EntityModel<TransaksiResponse> getByKode(@PathVariable String kode) {
 		Transaksi transaksi = service.findById(kode);
-		return toModel(TransaksiMapper.toResponse(transaksi));
+		List<ui.ft.ccit.faculty.transaksi.detailtransaksi.model.DetailTransaksi> details = detailService
+				.findByKodeTransaksi(transaksi.getKodeTransaksi());
+		String pelangganId = (transaksi.getPelanggan() != null) ? transaksi.getPelanggan().getIdPelanggan() : null;
+		BigDecimal total = calculationService.calculateTotal(details, pelangganId);
+		return toModel(TransaksiMapper.toResponse(transaksi, total));
+	}
+
+	@GetMapping("/{kode}/summary")
+	@Operation(summary = "Get transaction summary")
+	public ResponseEntity<TransactionSummary> getSummary(@PathVariable String kode) {
+		Transaksi transaksi = service.findById(kode);
+		List<ui.ft.ccit.faculty.transaksi.detailtransaksi.model.DetailTransaksi> details = detailService
+				.findByKodeTransaksi(transaksi.getKodeTransaksi());
+		String pelangganId = (transaksi.getPelanggan() != null) ? transaksi.getPelanggan().getIdPelanggan() : null;
+
+		TransactionSummary summary = calculationService.calculateSummary(details, pelangganId);
+		return ResponseEntity.ok(summary);
 	}
 
 	@PostMapping
@@ -72,9 +103,10 @@ public class TransaksiController {
 	public ResponseEntity<EntityModel<TransaksiResponse>> create(@Valid @RequestBody CreateTransaksiRequest request) {
 		Transaksi transaksi = TransaksiMapper.toEntity(request);
 		Transaksi created = service.create(transaksi);
+		// New transaction has no details yet, total is 0
 		return ResponseEntity
 				.created(linkTo(methodOn(TransaksiController.class).getByKode(created.getKodeTransaksi())).toUri())
-				.body(toModel(TransaksiMapper.toResponse(created)));
+				.body(toModel(TransaksiMapper.toResponse(created, BigDecimal.ZERO)));
 	}
 
 	@PutMapping("/{kode}")
@@ -86,7 +118,13 @@ public class TransaksiController {
 		// In future might need separate UpdateRequest.
 		Transaksi transaksi = TransaksiMapper.toEntity(request);
 		Transaksi updated = service.update(kode, transaksi);
-		return ResponseEntity.ok(toModel(TransaksiMapper.toResponse(updated)));
+
+		List<ui.ft.ccit.faculty.transaksi.detailtransaksi.model.DetailTransaksi> details = detailService
+				.findByKodeTransaksi(updated.getKodeTransaksi());
+		String pelangganId = (updated.getPelanggan() != null) ? updated.getPelanggan().getIdPelanggan() : null;
+		BigDecimal total = calculationService.calculateTotal(details, pelangganId);
+
+		return ResponseEntity.ok(toModel(TransaksiMapper.toResponse(updated, total)));
 	}
 
 	@DeleteMapping("/{kode}")

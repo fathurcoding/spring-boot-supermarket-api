@@ -44,14 +44,14 @@ public class JenisBarangController {
     public PagedModel<EntityModel<JenisBarangResponse>> getAll(
             @Parameter(description = "Optional name to search for") @RequestParam(required = false) String nama,
             @PageableDefault(size = 20, sort = "idJenisBarang", direction = Sort.Direction.ASC) Pageable pageable) {
-        
+
         Page<JenisBarang> page;
         if (nama != null && !nama.isEmpty()) {
             page = service.searchByNama(nama, pageable);
         } else {
             page = service.getAll(pageable);
         }
-        
+
         return PagedModel.of(
                 page.getContent().stream()
                         .map(JenisBarangMapper::toResponse)
@@ -61,17 +61,16 @@ public class JenisBarangController {
                         page.getSize(),
                         page.getNumber(),
                         page.getTotalElements(),
-                        page.getTotalPages()
-                ),
-                linkTo(methodOn(JenisBarangController.class).getAll(nama, pageable)).withSelfRel()
-        );
+                        page.getTotalPages()),
+                linkTo(methodOn(JenisBarangController.class).getAll(nama, pageable)).withSelfRel());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get category by ID", description = "Retrieves a product category by its ID")
     @ApiResponse(responseCode = "200", description = "Found the category", content = @Content(schema = @Schema(implementation = JenisBarangResponse.class)))
     @ApiResponse(responseCode = "404", description = "Category not found")
-    public EntityModel<JenisBarangResponse> getById(@Parameter(description = "ID of the category") @PathVariable Integer id) {
+    public EntityModel<JenisBarangResponse> getById(
+            @Parameter(description = "ID of the category") @PathVariable Integer id) {
         JenisBarang jenis = service.getById(id);
         return toModel(JenisBarangMapper.toResponse(jenis));
     }
@@ -79,7 +78,8 @@ public class JenisBarangController {
     @PostMapping
     @Operation(summary = "Create a new category", description = "Creates a new product category")
     @ApiResponse(responseCode = "201", description = "Category created successfully")
-    public ResponseEntity<EntityModel<JenisBarangResponse>> create(@Valid @RequestBody CreateJenisBarangRequest request) {
+    public ResponseEntity<EntityModel<JenisBarangResponse>> create(
+            @Valid @RequestBody CreateJenisBarangRequest request) {
         JenisBarang saved = service.save(JenisBarangMapper.toEntity(request));
         EntityModel<JenisBarangResponse> model = toModel(JenisBarangMapper.toResponse(saved));
 
@@ -88,11 +88,12 @@ public class JenisBarangController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a category", description = "Updates an existing product category")
-    public ResponseEntity<EntityModel<JenisBarangResponse>> update(@PathVariable Integer id, @Valid @RequestBody UpdateJenisBarangRequest request) {
+    public ResponseEntity<EntityModel<JenisBarangResponse>> update(@PathVariable Integer id,
+            @Valid @RequestBody UpdateJenisBarangRequest request) {
         // Fix update logic using a temporary entity helper
         JenisBarang temp = new JenisBarang();
         JenisBarangMapper.updateEntity(temp, request);
-        
+
         JenisBarang result = service.update(id, temp);
         return ResponseEntity.ok(toModel(JenisBarangMapper.toResponse(result)));
     }
@@ -104,10 +105,10 @@ public class JenisBarangController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-    
+
     private EntityModel<JenisBarangResponse> toModel(JenisBarangResponse response) {
         return EntityModel.of(response,
-                linkTo(methodOn(JenisBarangController.class).getById(response.getIdJenisBarang())).withSelfRel(),
+                linkTo(methodOn(JenisBarangController.class).getById(response.getIdJenisbrg())).withSelfRel(),
                 linkTo(methodOn(JenisBarangController.class).getAll(null, Pageable.unpaged())).withRel("jenis-barang"));
     }
 }
