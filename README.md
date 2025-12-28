@@ -201,10 +201,10 @@ Database `penjualan` memiliki **7 tabel utama**:
 | `jenis_barang` | Kategori produk (Snack, Minuman, dll) | ✅ Implemented |
 | `pemasok` | Data supplier | ✅ Implemented |
 | `barang` | Data produk dengan harga & stok | ✅ Implemented |
-| `karyawan` | Data karyawan supermarket | ⏳ Planned |
-| `pelanggan` | Data customer (membership) | ⏳ Planned |
-| `transaksi` | Header transaksi penjualan | ⏳ Planned |
-| `detail_transaksi` | Detail item per transaksi | ⏳ Planned |
+| `karyawan` | Data karyawan supermarket | ✅ Implemented |
+| `pelanggan` | Data customer (membership) | ✅ Implemented |
+| `transaksi` | Header transaksi penjualan | ✅ Implemented |
+| `detail_transaksi` | Detail item per transaksi | ✅ Implemented |
 
 ---
 
