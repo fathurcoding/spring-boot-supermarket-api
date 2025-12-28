@@ -3,7 +3,6 @@ package ui.ft.ccit.faculty.transaksi.transaksi.dto;
 import ui.ft.ccit.faculty.transaksi.transaksi.model.Transaksi;
 import ui.ft.ccit.faculty.transaksi.pelanggan.model.Pelanggan;
 import ui.ft.ccit.faculty.transaksi.karyawan.model.Karyawan;
-import java.util.Optional;
 
 public class TransaksiMapper {
 

@@ -46,6 +46,11 @@ API RESTful untuk sistem transaksi jual beli supermarket, dibangun dengan **Spri
 - ✅ Global exception handling
 - ✅ Clean architecture pattern
 - ✅ **Automated CI/CD** dengan GitHub Actions
+- ✅ **DTO Pattern** untuk validasi input dan keamanan data (Phase 2)
+- ✅ **Pagination & Sorting** support untuk semua list endpoint (Phase 2)
+- ✅ **Complex Business Logic** (Stok manajemen otomatis & kalkulasi diskon member) (Phase 2)
+- ✅ **Reporting Module** (Daily Revenue & Top Selling Products) (Phase 3)
+- ✅ **Robust Testing** dengan H2 In-Memory Database (Phase 3)
 
 ### Professional Features (Bonus)
 - 🎁 **Swagger/OpenAPI Documentation** - Interactive API documentation di `/swagger-ui.html`
@@ -328,6 +333,12 @@ docker-compose up  # Auto use docker profile
 ---
 
 ## 🧪 Testing
+
+### Reliability Update (Phase 3)
+Project ini sekarang menggunakan **H2 In-Memory Database** untuk integration tests. Ini memastikan tests berjalan cepat dan konsisten tanpa dependency ke database local.
+
+- **Unit Tests:** Menggunakan Mockito untuk business logic.
+- **Integration Tests:** `@SpringBootTest` dengan profile `test` (H2).
 
 ### Run Unit Tests
 
