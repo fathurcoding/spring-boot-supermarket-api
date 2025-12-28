@@ -45,7 +45,15 @@
 		<!-- WEB & REST API DEPENDENCIES              -->
 		<!-- ========================================= -->
 		
+
 		<!-- Spring Data REST: Expose JPA repositories as REST endpoints -->
+
+
+		<!-- Spring Boot Actuator: Health checks & Metrics (Production Ready) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 
 		<!-- Spring HATEOAS: Hypermedia support (EntityModel, CollectionModel, links) -->

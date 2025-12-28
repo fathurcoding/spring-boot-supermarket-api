@@ -3,7 +3,9 @@ package ui.ft.ccit.faculty.transaksi.barang.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "barang")
+@Table(name = "barang", indexes = {
+        @Index(name = "idx_barang_nama", columnList = "nama")
+})
 public class Barang {
 
     @Id
